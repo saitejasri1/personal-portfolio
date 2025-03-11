@@ -36,6 +36,10 @@ export default function Home() {
               1000,
             ]}
             repeat={Infinity}
+            speed={50}
+            cursor={true}
+            style={{ display: 'inline-block' }}
+            className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70"
           />
         </motion.div>
 
@@ -53,13 +57,50 @@ export default function Home() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           <Link href="/projects">
-            <Button size="lg" className="text-lg">
-              View My Work
+            <Button 
+              size="lg" 
+              className="text-lg relative overflow-hidden group"
+            >
+              <span className="relative z-10">View My Work</span>
+              <motion.div
+                className="absolute inset-0 bg-primary-foreground opacity-0 group-hover:opacity-10 transition-opacity"
+                initial={false}
+                animate={{ scale: [1, 2], opacity: [0, 0.1, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              />
             </Button>
           </Link>
         </motion.div>
+
+        {/* Floating elements */}
+        <motion.div
+          className="absolute left-10 top-20 w-8 h-8 border-2 border-primary rounded-full"
+          animate={{
+            y: [0, 20, 0],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute right-20 bottom-20 w-6 h-6 bg-primary/20 rounded-full"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
     </motion.div>
   );
