@@ -30,13 +30,15 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background text-foreground relative">
+      <div className="min-h-screen bg-transparent text-foreground relative overflow-hidden">
         <SpaceBackground />
-        <Navbar />
-        <main className="container mx-auto px-4 pt-16 relative">
-          <Router />
-        </main>
-        <Toaster />
+        <div className="relative z-10">
+          <Navbar />
+          <main className="container mx-auto px-4 pt-16">
+            <Router />
+          </main>
+          <Toaster />
+        </div>
       </div>
     </QueryClientProvider>
   );
