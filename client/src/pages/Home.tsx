@@ -5,13 +5,13 @@ import { TypeAnimation } from "react-type-animation";
 
 // Bubble component for individual bubbles
 const Bubble = ({ index }: { index: number }) => {
-  const size = Math.random() * 30 + 10; // Random size between 10-40px
+  const size = Math.random() * 20 + 5; // Smaller size between 5-25px
   const left = Math.random() * 100; // Random horizontal position
   const delay = Math.random() * 2; // Random delay for animation start
 
   return (
     <motion.div
-      className="absolute bottom-0 rounded-full bg-primary/10"
+      className="absolute bottom-0 rounded-full bg-primary/5" // Reduced opacity
       style={{
         width: size,
         height: size,
@@ -20,11 +20,11 @@ const Bubble = ({ index }: { index: number }) => {
       initial={{ y: 0, opacity: 0 }}
       animate={{
         y: [0, -1000],
-        x: [0, Math.sin(index) * 50], // Wobble effect
-        opacity: [0, 0.4, 0],
+        x: [0, Math.sin(index) * 30], // Reduced wobble
+        opacity: [0, 0.2, 0], // Lower peak opacity
       }}
       transition={{
-        duration: 10 + Math.random() * 5, // Random duration
+        duration: 15 + Math.random() * 5, // Slower animation
         delay: delay,
         repeat: Infinity,
         ease: "linear",
@@ -41,8 +41,8 @@ export default function Home() {
       exit={{ opacity: 0 }}
       className="min-h-[calc(100vh-4rem)] flex items-center justify-center relative overflow-hidden"
     >
-      {/* Bubbles */}
-      {Array.from({ length: 20 }).map((_, i) => (
+      {/* Reduced number of bubbles */}
+      {Array.from({ length: 12 }).map((_, i) => (
         <Bubble key={i} index={i} />
       ))}
 
@@ -113,7 +113,7 @@ export default function Home() {
 
         {/* Floating elements */}
         <motion.div
-          className="absolute left-10 top-20 w-8 h-8 border-2 border-primary rounded-full"
+          className="absolute left-10 top-20 w-8 h-8 border-2 border-primary/30 rounded-full"
           animate={{
             y: [0, 20, 0],
             rotate: [0, 180, 360],
@@ -125,10 +125,10 @@ export default function Home() {
           }}
         />
         <motion.div
-          className="absolute right-20 bottom-20 w-6 h-6 bg-primary/20 rounded-full"
+          className="absolute right-20 bottom-20 w-6 h-6 bg-primary/10 rounded-full"
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.2, 0.5, 0.2],
+            opacity: [0.1, 0.3, 0.1],
           }}
           transition={{
             duration: 3,
