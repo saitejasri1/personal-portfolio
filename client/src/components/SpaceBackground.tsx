@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function SpaceBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { backgroundTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,26 +75,25 @@ export default function SpaceBackground() {
       initStars();
     };
 
-    handleResize();
-    animate();
+    if (backgroundTheme === "space") {
+      handleResize();
+      animate();
 
-    window.addEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  // Check if the current theme is light
-  const isLightTheme = document.documentElement.classList.contains('light');
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        cancelAnimationFrame(animationFrameId);
+      };
+    }
+  }, [backgroundTheme]);
 
   return (
     <div className="fixed inset-0 -z-10 transition-colors duration-500">
-      {/* Light theme background */}
+      {/* Gradient background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-500 ${
-          isLightTheme ? 'opacity-100' : 'opacity-0'
+          backgroundTheme === "gradient" ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
           background: 'linear-gradient(to right top, #f3f4f6, #e5e7eb, #d1d5db)',
@@ -112,10 +113,10 @@ export default function SpaceBackground() {
         />
       </div>
 
-      {/* Dark theme star background */}
+      {/* Space background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-500 ${
-          isLightTheme ? 'opacity-0' : 'opacity-100'
+          backgroundTheme === "space" ? 'opacity-100' : 'opacity-0'
         } bg-black/50`}
       >
         <canvas

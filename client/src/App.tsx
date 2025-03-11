@@ -3,6 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { AnimatePresence } from "framer-motion";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import SpaceBackground from "@/components/SpaceBackground";
 import Footer from "@/components/Footer";
@@ -31,15 +32,17 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background/5 text-foreground relative flex flex-col">
-        <SpaceBackground />
-        <Navbar />
-        <main className="container mx-auto px-4 pt-16 relative flex-grow z-10">
-          <Router />
-        </main>
-        <Footer />
-        <Toaster />
-      </div>
+      <ThemeProvider>
+        <div className="min-h-screen bg-background/5 text-foreground relative flex flex-col">
+          <SpaceBackground />
+          <Navbar />
+          <main className="container mx-auto px-4 pt-16 relative flex-grow z-10">
+            <Router />
+          </main>
+          <Footer />
+          <Toaster />
+        </div>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
