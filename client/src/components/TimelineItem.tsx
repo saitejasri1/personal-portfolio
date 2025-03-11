@@ -38,7 +38,7 @@ export default function TimelineItem({
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{description}</p>
+          <p className="text-muted-foreground whitespace-pre-line">{description}</p>
         </CardContent>
       </Card>
     </motion.div>
