@@ -1,7 +1,23 @@
 import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+
+  const springX = useSpring(cursorX, { stiffness: 300, damping: 20 });
+  const springY = useSpring(cursorY, { stiffness: 300, damping: 20 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -91,9 +107,39 @@ export default function ParticleBackground() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 -z-10 opacity-70" // Increased opacity
-    />
+    <div className="fixed inset-0 -z-10 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 -z-10 opacity-70" // Increased opacity
+      />
+
+      {/* Bird Cursor */}
+      <motion.div
+        className="fixed pointer-events-none z-50"
+        style={{
+          x: springX,
+          y: springY,
+        }}
+      >
+        <motion.svg 
+          width="40" 
+          height="40" 
+          viewBox="0 0 100 100"
+          className="fill-primary"
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, -5, 0]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <path d="M50,20 Q65,20 75,35 T80,50 Q80,65 50,80 Q20,65 20,50 T25,35 Q35,20 50,20" />
+          <circle cx="40" cy="40" r="4" className="fill-white" />
+        </motion.svg>
+      </motion.div>
+    </div>
   );
 }
