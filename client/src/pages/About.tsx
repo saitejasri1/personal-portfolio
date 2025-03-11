@@ -35,8 +35,8 @@ export default function About() {
         <section className="grid md:grid-cols-2 gap-8 items-center">
           <div className="aspect-square rounded-lg overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2"
-              alt="Professional headshot"
+              src="/20241001_150737.jpg"
+              alt="Sai Tejasri Yerramsetti"
               className="w-full h-full object-cover"
             />
           </div>
@@ -48,7 +48,7 @@ export default function About() {
               problems and turning data into actionable insights.
             </p>
             <Button asChild>
-              <a href="/Data Science Resume.pdf" download>
+              <a href="/resume.pdf" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
               </a>

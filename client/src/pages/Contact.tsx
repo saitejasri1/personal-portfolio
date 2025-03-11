@@ -17,12 +17,13 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { SiMedium } from "react-icons/si"; //Import SiMedium
 import type { ContactForm } from "@shared/schema";
 import { contactFormSchema } from "@shared/schema";
 
 export default function Contact() {
   const { toast } = useToast();
-  
+
   const form = useForm<ContactForm>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -58,19 +59,24 @@ export default function Contact() {
 
   const socialLinks = [
     {
-      href: "https://github.com/yourusername",
+      href: "https://github.com/saitejasri1",
       icon: Github,
       label: "GitHub",
     },
     {
-      href: "https://linkedin.com/in/yourusername",
+      href: "https://linkedin.com/in/saitejasri",
       icon: Linkedin,
       label: "LinkedIn",
     },
     {
-      href: "mailto:your.email@example.com",
+      href: "mailto:ysaitejasrigrad@gmail.com",
       icon: Mail,
       label: "Email",
+    },
+    {
+      href: "https://medium.com/@saitejasri10",
+      icon: SiMedium,
+      label: "Medium",
     },
   ];
 
