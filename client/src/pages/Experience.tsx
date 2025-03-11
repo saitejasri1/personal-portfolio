@@ -1,6 +1,5 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import TimelineItem from "@/components/TimelineItem";
-import { Rocket } from "lucide-react";
 
 const experiences = [
   {
@@ -57,15 +56,6 @@ Developed data visualizations using Plotly and generated actionable insights via
 ];
 
 export default function Experience() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const rocketY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -76,45 +66,8 @@ export default function Experience() {
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Professional Experience</h1>
 
-        {/* Progress bar */}
-        <motion.div 
-          className="fixed top-16 left-0 right-0 h-1 bg-primary/20"
-          style={{ scaleX }}
-        />
-
-        {/* Timeline container */}
-        <div className="relative pl-8">
-          {/* Continuous timeline line */}
-          <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/20" />
-
-          {/* Rocket indicator */}
-          <motion.div
-            className="absolute left-0 -translate-x-[5px] z-50"
-            style={{ 
-              y: rocketY,
-              scale: useSpring(scrollYProgress, {
-                stiffness: 200,
-                damping: 20,
-                restDelta: 0.001
-              })
-            }}
-          >
-            <div className="relative">
-              <Rocket 
-                className="h-8 w-8 text-primary transform rotate-90" 
-              />
-              {/* Rocket trail effect */}
-              <motion.div 
-                className="absolute top-1/2 left-1/2 w-12 h-12 -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  background: "radial-gradient(circle, hsl(var(--primary) / 0.2) 0%, transparent 70%)",
-                  filter: "blur(4px)"
-                }}
-              />
-            </div>
-          </motion.div>
-
-          {/* Experience items */}
+        {/* Experience items */}
+        <div className="space-y-6">
           {experiences.map((experience, index) => (
             <TimelineItem
               key={experience.company}
