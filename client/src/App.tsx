@@ -4,7 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import DataBackground from "@/components/DataBackground";
+import SpaceBackground from "@/components/SpaceBackground";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -30,15 +30,13 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-transparent text-foreground relative overflow-hidden">
-        <DataBackground />
-        <div className="relative z-10">
-          <Navbar />
-          <main className="container mx-auto px-4 pt-16">
-            <Router />
-          </main>
-          <Toaster />
-        </div>
+      <div className="min-h-screen bg-background text-foreground relative">
+        <SpaceBackground />
+        <Navbar />
+        <main className="container mx-auto px-4 pt-16 relative">
+          <Router />
+        </main>
+        <Toaster />
       </div>
     </QueryClientProvider>
   );
