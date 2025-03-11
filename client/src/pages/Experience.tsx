@@ -63,11 +63,11 @@ export default function Experience() {
       exit={{ opacity: 0 }}
       className="py-12"
     >
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-bold mb-8">Professional Experience</h1>
 
         {/* Experience items */}
-        <div className="space-y-6">
+        <div className="relative">
           {experiences.map((experience, index) => (
             <TimelineItem
               key={experience.company}
