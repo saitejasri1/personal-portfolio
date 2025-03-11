@@ -64,7 +64,7 @@ export default function Experience() {
     restDelta: 0.001
   });
 
-  const rocketX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const rocketY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <motion.div
@@ -82,15 +82,20 @@ export default function Experience() {
           style={{ scaleX }}
         />
 
-        {/* Rocket indicator */}
-        <motion.div
-          className="fixed top-14 left-0"
-          style={{ x: rocketX }}
-        >
-          <Rocket className="h-6 w-6 text-primary transform -rotate-90" />
-        </motion.div>
+        {/* Timeline container */}
+        <div className="relative pl-8">
+          {/* Continuous timeline line */}
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-primary/20" />
 
-        <div className="relative">
+          {/* Rocket indicator */}
+          <motion.div
+            className="absolute left-0 -translate-x-1/2"
+            style={{ y: rocketY }}
+          >
+            <Rocket className="h-6 w-6 text-primary transform -rotate-90" />
+          </motion.div>
+
+          {/* Experience items */}
           {experiences.map((experience, index) => (
             <TimelineItem
               key={experience.company}
