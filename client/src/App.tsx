@@ -35,7 +35,9 @@ function App() {
         <div className="relative z-10">
           <Navbar />
           <main className="container mx-auto px-4 pt-16">
-            <Router />
+            <div className="backdrop-blur-sm bg-white/40 rounded-lg shadow-lg p-6">
+              <Router />
+            </div>
           </main>
           <Toaster />
         </div>
