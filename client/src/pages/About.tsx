@@ -18,10 +18,16 @@ const skills = [
 ];
 
 const cookingImages = [
-  { src: "/images/cooking1.jpg", alt: "Grilling on a barbecue" },
-  { src: "/images/cooking2.jpg", alt: "Indian street food" },
-  { src: "/images/cooking3.jpg", alt: "Asian cuisine" },
-  { src: "/images/cooking4.jpg", alt: "Homemade dish" },
+  { src: "/images/cooking1.jpg", alt: "Grilling spicy chicken on a barbecue" },
+  { src: "/images/cooking2.jpg", alt: "Colorful Indian street food platter" },
+  { src: "/images/cooking3.jpg", alt: "Homemade manchurian dish" },
+  { src: "/images/cooking4.jpg", alt: "Delicious spicy food creation" },
+];
+
+const travelImages = [
+  { src: "/images/travel/travel1.jpg", alt: "Serene temple architecture" },
+  { src: "/images/travel/travel2.jpg", alt: "Beautiful sunset at the beach" },
+  { src: "/images/travel/travel3.jpg", alt: "Peaceful pilgrimage destination" },
 ];
 
 const hobbies = [
@@ -29,14 +35,17 @@ const hobbies = [
     title: "Cooking",
     description: "Exploring world cuisines and experimenting with new recipes. I love creating both traditional dishes and fusion experiments. My specialties include Indian street food, Asian cuisine, and barbecue.",
     showCarousel: true,
+    images: cookingImages,
   },
   {
     title: "Traveling",
-    description: "Discovering new cultures and capturing memories",
+    description: "I have a deep appreciation for nature's beauty and spiritual places. I love spending time at beaches watching sunrises and sunsets, visiting ancient temples, and going on pilgrimages. These journeys help me connect with both nature and culture.",
+    showCarousel: true,
+    images: travelImages,
   },
   {
     title: "Blogging",
-    description: "Sharing insights about AI and technology",
+    description: "Sharing insights about AI and technology, and documenting my learning journey in data science and machine learning.",
   },
 ];
 
@@ -66,9 +75,9 @@ export default function About() {
               problems and turning data into actionable insights.
             </p>
             <Button asChild>
-              <a 
-                href="/resume.pdf" 
-                target="_blank" 
+              <a
+                href="/resume.pdf"
+                target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => {
                   setTimeout(() => {
@@ -114,7 +123,7 @@ export default function About() {
 
                   {hobby.showCarousel && (
                     <div className="mt-6">
-                      <ImageCarousel images={cookingImages} />
+                      <ImageCarousel images={hobby.images} />
                     </div>
                   )}
                 </div>
