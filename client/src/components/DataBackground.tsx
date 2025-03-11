@@ -32,6 +32,7 @@ export default function DataBackground() {
       y: number;
       size: number;
       connections: number[];
+      velocity: { x: number; y: number };
     }> = [];
 
     const resize = () => {
@@ -46,20 +47,28 @@ export default function DataBackground() {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 2 + 2,
-      connections: Array.from({ length: 3 }, () => 
+      connections: Array.from({ length: 3 }, () =>
         Math.floor(Math.random() * 20)
-      ).filter(n => n !== index),
+      ).filter((n) => n !== index),
+      velocity: {
+        x: (Math.random() - 0.5) * 0.5,
+        y: (Math.random() - 0.5) * 0.5,
+      },
     });
 
     const initNodes = () => {
       nodes.length = 0;
-      const density = (canvas.width * canvas.height) / 20000;
+      const density = (canvas.width * canvas.height) / 15000;
       for (let i = 0; i < density; i++) {
         nodes.push(createNode(i));
       }
     };
 
-    const drawConnection = (start: typeof nodes[0], end: typeof nodes[0], alpha: number) => {
+    const drawConnection = (
+      start: typeof nodes[0],
+      end: typeof nodes[0],
+      alpha: number
+    ) => {
       ctx.beginPath();
       ctx.strokeStyle = `rgba(125, 211, 252, ${alpha})`; // Light blue color
       ctx.lineWidth = 1;
@@ -71,17 +80,29 @@ export default function DataBackground() {
     const drawNode = (node: typeof nodes[0]) => {
       ctx.beginPath();
       ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(125, 211, 252, 0.8)';
+      ctx.fillStyle = "rgba(125, 211, 252, 0.8)";
       ctx.fill();
+
+      // Add glow effect
+      ctx.shadowColor = "rgba(125, 211, 252, 0.5)";
+      ctx.shadowBlur = 10;
     };
 
     const animate = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.shadowBlur = 0; // Reset shadow for background
 
       // Draw connections
       nodes.forEach((node, i) => {
-        node.connections.forEach(connectionIndex => {
+        // Update node position with velocity
+        node.x += node.velocity.x;
+        node.y += node.velocity.y;
+
+        // Bounce off edges
+        if (node.x < 0 || node.x > canvas.width) node.velocity.x *= -1;
+        if (node.y < 0 || node.y > canvas.height) node.velocity.y *= -1;
+
+        node.connections.forEach((connectionIndex) => {
           if (connectionIndex < nodes.length) {
             const distance = Math.hypot(
               nodes[connectionIndex].x - node.x,
@@ -96,15 +117,7 @@ export default function DataBackground() {
       });
 
       // Draw nodes
-      nodes.forEach(node => {
-        node.y += Math.sin(Date.now() * 0.001) * 0.5;
-        node.x += Math.cos(Date.now() * 0.001) * 0.5;
-
-        if (node.x < 0) node.x = canvas.width;
-        if (node.x > canvas.width) node.x = 0;
-        if (node.y < 0) node.y = canvas.height;
-        if (node.y > canvas.height) node.y = 0;
-
+      nodes.forEach((node) => {
         drawNode(node);
       });
 
@@ -132,10 +145,10 @@ export default function DataBackground() {
       {/* Neural Network Animation */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-50"
+        className="absolute inset-0 w-full h-full opacity-70"
       />
 
-      {/* Geometric Patterns */}
+      {/* Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.1)_1px,transparent_1px),linear-gradient(to_right,rgba(59,130,246,0.1)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
       {/* Data Flow Cursor */}
@@ -146,19 +159,19 @@ export default function DataBackground() {
           y: springY,
         }}
       >
-        <motion.svg 
-          width="40" 
-          height="40" 
+        <motion.svg
+          width="40"
+          height="40"
           viewBox="0 0 100 100"
           className="fill-sky-400"
           animate={{
             scale: [1, 1.1, 1],
-            rotate: [0, -5, 0]
+            rotate: [0, -5, 0],
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         >
           <path d="M50,20 L80,50 L50,80 L20,50 Z" />
