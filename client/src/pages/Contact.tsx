@@ -16,8 +16,6 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Github, Linkedin, Mail } from "lucide-react";
-import { SiMedium } from "react-icons/si"; //Import SiMedium
 import type { ContactForm } from "@shared/schema";
 import { contactFormSchema } from "@shared/schema";
 
@@ -56,29 +54,6 @@ export default function Contact() {
   const onSubmit = (data: ContactForm) => {
     mutation.mutate(data);
   };
-
-  const socialLinks = [
-    {
-      href: "https://github.com/saitejasri1",
-      icon: Github,
-      label: "GitHub",
-    },
-    {
-      href: "https://linkedin.com/in/saitejasri",
-      icon: Linkedin,
-      label: "LinkedIn",
-    },
-    {
-      href: "mailto:ysaitejasrigrad@gmail.com",
-      icon: Mail,
-      label: "Email",
-    },
-    {
-      href: "https://medium.com/@saitejasri10",
-      icon: SiMedium,
-      label: "Medium",
-    },
-  ];
 
   return (
     <motion.div
@@ -159,26 +134,6 @@ export default function Contact() {
             </Form>
           </CardContent>
         </Card>
-
-        <div className="text-center space-y-4">
-          <h2 className="text-xl font-semibold">Connect with Me</h2>
-          <div className="flex justify-center gap-6">
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full hover:bg-accent transition-colors"
-                whileHover={{ scale: 1.1 }}
-                initial={{ scale: 1 }}
-              >
-                <link.icon className="h-6 w-6" />
-                <span className="sr-only">{link.label}</span>
-              </motion.a>
-            ))}
-          </div>
-        </div>
       </div>
     </motion.div>
   );

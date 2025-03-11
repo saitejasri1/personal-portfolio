@@ -18,16 +18,16 @@ const skills = [
 ];
 
 const cookingImages = [
-  { src: "/20250130_203805.jpg", alt: "Grilling spicy chicken on a barbecue" },
-  { src: "/IMG-20231111-WA0021.jpg", alt: "Colorful Indian street food platter" },
-  { src: "/IMG-20240318-WA0016.jpg", alt: "Homemade manchurian dish" },
-  { src: "/IMG-20240704-WA0010.jpeg", alt: "Delicious spicy food creation" },
+  { src: "/images/20250130_203805.jpg", alt: "Grilling spicy chicken on a barbecue" },
+  { src: "/images/IMG-20231111-WA0021.jpg", alt: "Colorful Indian street food platter" },
+  { src: "/images/IMG-20240318-WA0016.jpg", alt: "Homemade manchurian dish" },
+  { src: "/images/IMG-20240704-WA0010.jpeg", alt: "Delicious spicy food creation" },
 ];
 
 const travelImages = [
-  { src: "/WhatsApp Image 2025-03-11 at 16.16.22.jpeg", alt: "Serene temple architecture" },
-  { src: "/WhatsApp Image 2025-03-11 at 16.16.23 (1).jpeg", alt: "Beautiful sunset at the beach" },
-  { src: "/WhatsApp Image 2025-03-11 at 16.16.23.jpeg", alt: "Peaceful pilgrimage destination" },
+  { src: "/images/WhatsApp Image 2025-03-11 at 16.16.22.jpeg", alt: "Serene temple architecture" },
+  { src: "/images/WhatsApp Image 2025-03-11 at 16.16.23 (1).jpeg", alt: "Beautiful sunset at the beach" },
+  { src: "/images/WhatsApp Image 2025-03-11 at 16.16.23.jpeg", alt: "Peaceful pilgrimage destination" },
 ];
 
 const hobbies = [
@@ -36,7 +36,7 @@ const hobbies = [
     description: "Recently started sharing my technical insights on Medium, focusing on topics like Rust programming, AI, and technology. Writing helps me document my learning journey and connect with the tech community.",
     showCarousel: true,
     images: [
-      { src: "/Screenshot 2025-03-11 at 4.18.34 PM.png", alt: "My Medium article about Rust installation" },
+      { src: "/images/Screenshot 2025-03-11 at 4.18.34 PM.png", alt: "My Medium article about Rust installation" },
     ],
   },
   {
