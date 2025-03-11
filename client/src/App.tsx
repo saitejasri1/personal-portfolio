@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import SpaceBackground from "@/components/SpaceBackground";
+import TreeBackground from "@/components/TreeBackground";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -32,6 +33,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background text-foreground relative">
         <SpaceBackground />
+        <TreeBackground />
         <Navbar />
         <main className="container mx-auto px-4 pt-16 relative">
           <Router />
