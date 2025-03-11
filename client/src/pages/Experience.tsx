@@ -89,10 +89,10 @@ export default function Experience() {
 
           {/* Rocket indicator */}
           <motion.div
-            className="absolute left-0 -translate-x-1/2"
+            className="absolute left-0 -translate-x-[5px]"
             style={{ y: rocketY }}
           >
-            <Rocket className="h-6 w-6 text-primary transform -rotate-90" />
+            <Rocket className="h-6 w-6 text-primary transform rotate-90" />
           </motion.div>
 
           {/* Experience items */}
