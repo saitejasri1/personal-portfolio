@@ -122,6 +122,102 @@ export default function ParticleBackground() {
         className="absolute inset-0 w-full h-full opacity-60"
       />
 
+      {/* Large Cherry Blossom Tree */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <svg viewBox="0 0 800 600" className="w-full h-full">
+          {/* Tree Trunk */}
+          <motion.path
+            d="M400,550 C380,450 420,400 400,300 C380,200 420,150 400,50"
+            stroke="#8B4513"
+            strokeWidth="40"
+            fill="none"
+            animate={{ 
+              d: [
+                "M400,550 C380,450 420,400 400,300 C380,200 420,150 400,50",
+                "M400,550 C420,450 380,400 400,300 C420,200 380,150 400,50",
+                "M400,550 C380,450 420,400 400,300 C380,200 420,150 400,50"
+              ]
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+
+          {/* Tree Branches */}
+          {[...Array(8)].map((_, i) => (
+            <motion.path
+              key={i}
+              d={`M400,${150 + i * 50} C${350 - i * 20},${140 + i * 50} ${300 - i * 30},${160 + i * 50} ${250 - i * 40},${170 + i * 50}`}
+              stroke="#8B4513"
+              strokeWidth={10 - i}
+              fill="none"
+              animate={{
+                d: [
+                  `M400,${150 + i * 50} C${350 - i * 20},${140 + i * 50} ${300 - i * 30},${160 + i * 50} ${250 - i * 40},${170 + i * 50}`,
+                  `M400,${150 + i * 50} C${350 - i * 20},${130 + i * 50} ${300 - i * 30},${150 + i * 50} ${250 - i * 40},${160 + i * 50}`,
+                  `M400,${150 + i * 50} C${350 - i * 20},${140 + i * 50} ${300 - i * 30},${160 + i * 50} ${250 - i * 40},${170 + i * 50}`
+                ]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.2
+              }}
+            />
+          ))}
+
+          {/* Mirror branches on the right side */}
+          {[...Array(8)].map((_, i) => (
+            <motion.path
+              key={`right-${i}`}
+              d={`M400,${150 + i * 50} C${450 + i * 20},${140 + i * 50} ${500 + i * 30},${160 + i * 50} ${550 + i * 40},${170 + i * 50}`}
+              stroke="#8B4513"
+              strokeWidth={10 - i}
+              fill="none"
+              animate={{
+                d: [
+                  `M400,${150 + i * 50} C${450 + i * 20},${140 + i * 50} ${500 + i * 30},${160 + i * 50} ${550 + i * 40},${170 + i * 50}`,
+                  `M400,${150 + i * 50} C${450 + i * 20},${130 + i * 50} ${500 + i * 30},${150 + i * 50} ${550 + i * 40},${160 + i * 50}`,
+                  `M400,${150 + i * 50} C${450 + i * 20},${140 + i * 50} ${500 + i * 30},${160 + i * 50} ${550 + i * 40},${170 + i * 50}`
+                ]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.2
+              }}
+            />
+          ))}
+
+          {/* Flower Clusters */}
+          {[...Array(20)].map((_, i) => (
+            <motion.g key={`cluster-${i}`}>
+              <circle
+                cx={300 + Math.random() * 400}
+                cy={100 + Math.random() * 300}
+                r={20 + Math.random() * 30}
+                fill="#ffd7eb"
+                opacity={0.8}
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.8, 0.9, 0.8]
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: Math.random() * 2
+                }}
+              />
+            </motion.g>
+          ))}
+        </svg>
+      </div>
+
       {/* Bird Cursor */}
       <motion.div
         className="fixed pointer-events-none z-50"
