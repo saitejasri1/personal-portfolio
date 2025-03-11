@@ -193,18 +193,18 @@ export default function ParticleBackground() {
             />
           ))}
 
-          {/* Flower Clusters */}
-          {[...Array(20)].map((_, i) => (
-            <motion.g key={`cluster-${i}`}>
+          {/* Cherry Blossoms */}
+          {[...Array(30)].map((_, i) => (
+            <motion.g key={`blossom-${i}`}>
               <circle
                 cx={300 + Math.random() * 400}
                 cy={100 + Math.random() * 300}
-                r={20 + Math.random() * 30}
+                r={15 + Math.random() * 20}
                 fill="#ffd7eb"
-                opacity={0.8}
+                opacity={0.9}
                 animate={{
                   scale: [1, 1.1, 1],
-                  opacity: [0.8, 0.9, 0.8]
+                  opacity: [0.8, 1, 0.8]
                 }}
                 transition={{
                   duration: 2 + Math.random() * 2,
@@ -213,6 +213,17 @@ export default function ParticleBackground() {
                   delay: Math.random() * 2
                 }}
               />
+              {/* Petal details */}
+              {[...Array(5)].map((_, j) => (
+                <circle
+                  key={`petal-${j}`}
+                  cx={300 + Math.random() * 400 + Math.cos(j * 72 * Math.PI / 180) * 10}
+                  cy={100 + Math.random() * 300 + Math.sin(j * 72 * Math.PI / 180) * 10}
+                  r={5}
+                  fill="#ffb7db"
+                  opacity={0.7}
+                />
+              ))}
             </motion.g>
           ))}
         </svg>
@@ -246,9 +257,6 @@ export default function ParticleBackground() {
           <path d="M55,45 Q60,45 65,40" className="stroke-white stroke-2 fill-none" />
         </motion.svg>
       </motion.div>
-
-      {/* Grid Lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
     </div>
   );
 }
