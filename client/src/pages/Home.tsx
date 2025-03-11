@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import SpaceBackground from "@/components/SpaceBackground";
 import { TypeAnimation } from "react-type-animation";
 
 export default function Home() {
@@ -12,8 +11,6 @@ export default function Home() {
       exit={{ opacity: 0 }}
       className="min-h-[calc(100vh-4rem)] flex items-center justify-center relative"
     >
-      <SpaceBackground />
-
       <div className="text-center space-y-6 max-w-3xl mx-auto px-4">
         <motion.h1
           initial={{ y: 20 }}

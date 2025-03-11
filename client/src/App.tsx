@@ -4,6 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import SpaceBackground from "@/components/SpaceBackground";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -29,9 +30,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen bg-background text-foreground relative">
+        <SpaceBackground />
         <Navbar />
-        <main className="container mx-auto px-4 pt-16">
+        <main className="container mx-auto px-4 pt-16 relative">
           <Router />
         </main>
         <Toaster />
