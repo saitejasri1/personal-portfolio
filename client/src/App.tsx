@@ -31,10 +31,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background text-foreground relative flex flex-col">
+      <div className="min-h-screen bg-background/5 text-foreground relative flex flex-col">
         <SpaceBackground />
         <Navbar />
-        <main className="container mx-auto px-4 pt-16 relative flex-grow">
+        <main className="container mx-auto px-4 pt-16 relative flex-grow z-10">
           <Router />
         </main>
         <Footer />

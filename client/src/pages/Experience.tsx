@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import TimelineItem from "@/components/TimelineItem";
-import SpaceBackground from "@/components/SpaceBackground";
 
 const experiences = [
   {
@@ -64,9 +63,8 @@ export default function Experience() {
       exit={{ opacity: 0 }}
       className="py-12 relative min-h-screen"
     >
-      <SpaceBackground />
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
-        <h1 className="text-3xl font-bold mb-8 text-white">Professional Experience</h1>
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8 text-foreground">Professional Experience</h1>
 
         {/* Experience items */}
         <div className="relative">
