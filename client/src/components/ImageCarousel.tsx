@@ -28,6 +28,25 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
+  // If there's only one image, display it without carousel controls
+  if (images.length === 1) {
+    return (
+      <div className="overflow-hidden rounded-lg bg-card border border-border">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="relative"
+        >
+          <img
+            src={images[0].src}
+            alt={images[0].alt}
+            className="w-full object-contain max-h-[400px]"
+          />
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative group">
       <div className="overflow-hidden rounded-lg" ref={emblaRef}>
