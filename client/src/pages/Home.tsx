@@ -11,7 +11,7 @@ const Bubble = ({ index }: { index: number }) => {
 
   return (
     <motion.div
-      className="absolute bottom-0 rounded-full bg-primary/10" // Increased opacity slightly
+      className="absolute bottom-0 rounded-full bg-primary/20" // Increased opacity for more visibility
       style={{
         width: size,
         height: size,
