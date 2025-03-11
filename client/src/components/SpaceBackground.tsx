@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 export default function SpaceBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Star background animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -16,68 +15,78 @@ export default function SpaceBackground() {
     const stars: Array<{
       x: number;
       y: number;
-      radius: number;
+      size: number;
       alpha: number;
-      fadeDirection: number;
+      speed: number;
     }> = [];
 
     const resize = () => {
-      const { width, height } = canvas.getBoundingClientRect();
-      canvas.width = width;
-      canvas.height = height;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
     };
 
-    const createStar = () => {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.5,
-        alpha: Math.random(),
-        fadeDirection: Math.random() > 0.5 ? 0.005 : -0.005,
-      };
-    };
+    const createStar = () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.002 + 0.002,
+    });
 
-    const init = () => {
-      resize();
-      // Create stars
-      for (let i = 0; i < 150; i++) {
+    const initStars = () => {
+      stars.length = 0;
+      const density = (canvas.width * canvas.height) / 8000;
+      for (let i = 0; i < density; i++) {
         stars.push(createStar());
       }
     };
 
+    const drawStar = (star: typeof stars[0]) => {
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(220, 100%, 80%, ${star.alpha})`;
+      ctx.fill();
+    };
+
+    const updateStar = (star: typeof stars[0]) => {
+      star.alpha += Math.sin(Date.now() * star.speed) * 0.01;
+      star.alpha = Math.max(0.1, Math.min(1, star.alpha));
+      return star;
+    };
+
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw and animate stars
       stars.forEach((star) => {
-        star.alpha += star.fadeDirection;
-
-        if (star.alpha <= 0 || star.alpha >= 1) {
-          star.fadeDirection *= -1;
-        }
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(220, 100%, 90%, ${star.alpha})`;
-        ctx.fill();
+        updateStar(star);
+        drawStar(star);
       });
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    init();
+    const handleResize = () => {
+      resize();
+      initStars();
+    };
+
+    handleResize();
     animate();
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-black/20">
+    <div className="fixed inset-0 -z-10 bg-black">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
@@ -85,46 +94,46 @@ export default function SpaceBackground() {
 
       {/* Earth */}
       <motion.div
-        className="absolute w-32 h-32"
-        initial={{ x: "0%", y: "0%" }}
+        className="absolute w-24 h-24 opacity-60"
+        initial={{ x: "-10%", y: "10%" }}
         animate={{
-          x: ["0%", "70%", "0%"],
-          y: ["0%", "40%", "0%"],
+          x: ["-10%", "70%", "-10%"],
+          y: ["10%", "60%", "10%"],
         }}
         transition={{
-          duration: 40,
+          duration: 60,
           ease: "linear",
           repeat: Infinity,
         }}
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full opacity-40">
-          <circle cx="50" cy="50" r="45" fill="hsl(200, 70%, 50%)" />
+        <svg viewBox="0 0 100 100" className="w-full h-full filter blur-[1px]">
+          <circle cx="50" cy="50" r="48" fill="hsl(200, 80%, 40%)" />
           <path
-            d="M30,50 Q50,30 70,50 Q50,70 30,50"
-            fill="hsl(120, 60%, 50%)"
-            opacity="0.6"
+            d="M25,50 Q50,20 75,50 Q50,80 25,50"
+            fill="hsl(130, 70%, 40%)"
+            opacity="0.7"
           />
         </svg>
       </motion.div>
 
       {/* Moon */}
       <motion.div
-        className="absolute w-16 h-16"
-        initial={{ x: "100%", y: "30%" }}
+        className="absolute w-12 h-12 opacity-60"
+        initial={{ x: "90%", y: "20%" }}
         animate={{
-          x: ["100%", "30%", "100%"],
-          y: ["30%", "60%", "30%"],
+          x: ["90%", "20%", "90%"],
+          y: ["20%", "70%", "20%"],
         }}
         transition={{
-          duration: 30,
+          duration: 45,
           ease: "linear",
           repeat: Infinity,
         }}
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full opacity-40">
-          <circle cx="50" cy="50" r="45" fill="hsl(60, 10%, 90%)" />
-          <circle cx="35" cy="35" r="10" fill="hsl(60, 10%, 80%)" opacity="0.5" />
-          <circle cx="60" cy="60" r="12" fill="hsl(60, 10%, 80%)" opacity="0.5" />
+        <svg viewBox="0 0 100 100" className="w-full h-full filter blur-[1px]">
+          <circle cx="50" cy="50" r="48" fill="hsl(60, 20%, 95%)" />
+          <circle cx="35" cy="35" r="12" fill="hsl(60, 20%, 85%)" opacity="0.5" />
+          <circle cx="65" cy="65" r="15" fill="hsl(60, 20%, 85%)" opacity="0.5" />
         </svg>
       </motion.div>
     </div>
