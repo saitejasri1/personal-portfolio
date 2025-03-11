@@ -1,5 +1,6 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import TimelineItem from "@/components/TimelineItem";
+import TreeBranches from "@/components/TreeBranches";
 import { Rocket } from "lucide-react";
 
 const experiences = [
@@ -42,7 +43,7 @@ const experiences = [
     company: "Stanford d.school",
     position: "University Innovation Fellow",
     period: "Jul 2019 - Aug 2021",
-    description: `Served as an organizer for Center for Innovation and Entrepreneurship in undergraduate university, fostering innovation and entrepreneurial mindset among students.`,
+    description: `Participated in the prestigious Design Thinking Workshop as an apprentice, joining students from 330 colleges worldwide at the Silicon Valley meetup at Stanford University. Led initiatives as an organizer for the Center for Innovation and Entrepreneurship, fostering innovation and entrepreneurial mindset among students.`,
   },
   {
     company: "Knowledge Solutions India",
@@ -87,6 +88,7 @@ export default function Experience() {
         </motion.div>
 
         <div className="relative space-y-4">
+          <TreeBranches />
           {experiences.map((experience, index) => (
             <TimelineItem
               key={experience.company}
