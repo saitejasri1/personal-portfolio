@@ -11,7 +11,7 @@ const Bubble = ({ index }: { index: number }) => {
 
   return (
     <motion.div
-      className="absolute bottom-0 rounded-full bg-primary/20" // Increased opacity for more visibility
+      className="absolute bottom-0 rounded-full bg-primary/40" // Increased opacity for more visibility
       style={{
         width: size,
         height: size,
@@ -21,7 +21,7 @@ const Bubble = ({ index }: { index: number }) => {
       animate={{
         y: [0, -500], // Reduced travel distance for more visible bubbles
         x: [0, Math.sin(index) * 20], // Gentle wobble
-        opacity: [0.1, 0.3, 0], // Increased opacity range
+        opacity: [0.1, 0.5, 0], // Increased opacity range
       }}
       transition={{
         duration: 8 + Math.random() * 4, // Faster animation
