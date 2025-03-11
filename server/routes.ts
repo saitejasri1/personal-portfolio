@@ -3,6 +3,12 @@ import { createServer, type Server } from "http";
 import { contactFormSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
+  // Contact form endpoint
   app.post("/api/contact", async (req, res) => {
     try {
       const data = contactFormSchema.parse(req.body);
