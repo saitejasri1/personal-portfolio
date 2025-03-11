@@ -1,14 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-interface Fish {
-  x: number;
-  y: number;
-  scale: number;
-  speed: number;
-  direction: number;
-}
-
 export default function OceanBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -38,13 +30,13 @@ export default function OceanBackground() {
     const createBubble = () => ({
       x: Math.random() * canvas.width,
       y: canvas.height + Math.random() * 20,
-      size: Math.random() * 4 + 2,
-      speed: Math.random() * 1 + 0.5,
+      size: Math.random() * 6 + 2, // Increased bubble size
+      speed: Math.random() * 2 + 1, // Increased bubble speed
     });
 
     const initBubbles = () => {
       bubbles.length = 0;
-      const density = (canvas.width * canvas.height) / 15000;
+      const density = (canvas.width * canvas.height) / 10000; // Increased bubble density
       for (let i = 0; i < density; i++) {
         bubbles.push(createBubble());
       }
@@ -53,13 +45,18 @@ export default function OceanBackground() {
     const drawBubble = (bubble: typeof bubbles[0]) => {
       ctx.beginPath();
       ctx.arc(bubble.x, bubble.y, bubble.size, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.4)"; // Made bubbles more visible
+      ctx.fill();
+      // Add shine effect to bubbles
+      ctx.beginPath();
+      ctx.arc(bubble.x - bubble.size/3, bubble.y - bubble.size/3, bubble.size/4, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
       ctx.fill();
     };
 
     const updateBubble = (bubble: typeof bubbles[0]) => {
       bubble.y -= bubble.speed;
-      bubble.x += Math.sin(bubble.y * 0.02) * 0.5;
+      bubble.x += Math.sin(bubble.y * 0.03) * 0.8; // More pronounced sideways movement
 
       if (bubble.y < -20) {
         Object.assign(bubble, createBubble());
@@ -101,7 +98,7 @@ export default function OceanBackground() {
         className="absolute inset-0 w-full h-full opacity-50"
       />
 
-      {/* Fish Group 1 */}
+      {/* Large Fish */}
       <motion.div
         className="absolute w-16 h-16"
         initial={{ x: "-10%", y: "20%" }}
@@ -110,8 +107,8 @@ export default function OceanBackground() {
           y: ["20%", "60%", "20%"],
         }}
         transition={{
-          duration: 15,
-          ease: "linear",
+          duration: 10, // Faster animation
+          ease: "easeInOut",
           repeat: Infinity,
         }}
       >
@@ -124,7 +121,7 @@ export default function OceanBackground() {
         </svg>
       </motion.div>
 
-      {/* Fish Group 2 */}
+      {/* Medium Fish */}
       <motion.div
         className="absolute w-12 h-12"
         initial={{ x: "110%", y: "40%" }}
@@ -133,8 +130,8 @@ export default function OceanBackground() {
           y: ["40%", "80%", "40%"],
         }}
         transition={{
-          duration: 20,
-          ease: "linear",
+          duration: 12, // Faster animation
+          ease: "easeInOut",
           repeat: Infinity,
         }}
       >
@@ -147,7 +144,7 @@ export default function OceanBackground() {
         </svg>
       </motion.div>
 
-      {/* Small Fish School */}
+      {/* School of Small Fish */}
       <motion.div
         className="absolute w-32 h-32 opacity-70"
         initial={{ x: "50%", y: "30%" }}
@@ -156,18 +153,27 @@ export default function OceanBackground() {
           y: ["30%", "70%", "50%", "30%"],
         }}
         transition={{
-          duration: 30,
-          ease: "linear",
+          duration: 15, // Faster animation
+          ease: "easeInOut",
           repeat: Infinity,
         }}
       >
-        {[...Array(5)].map((_, i) => (
+        {[...Array(8)].map((_, i) => ( // Added more fish to the school
           <motion.div
             key={i}
             className="absolute"
             style={{
-              left: `${i * 10}px`,
-              top: `${i * 8}px`,
+              left: `${i * 8}px`,
+              top: `${i * 6}px`,
+            }}
+            animate={{
+              x: [0, 5, 0],
+              y: [0, 3, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.1,
             }}
           >
             <svg viewBox="0 0 50 50" className="w-6 h-6 text-blue-300">
