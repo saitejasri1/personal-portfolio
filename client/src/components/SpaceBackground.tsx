@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 
 export default function SpaceBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -96,16 +95,19 @@ export default function SpaceBackground() {
           isLightTheme ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          background: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
+          background: 'linear-gradient(to right top, #f3f4f6, #e5e7eb, #d1d5db)',
         }}
       >
-        {/* Subtle animated gradient */}
+        {/* Subtle animated gradient overlay */}
         <div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           style={{
-            background: 'linear-gradient(-45deg, transparent 0%, #f5f5f5 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient 15s ease infinite',
+            background: `
+              radial-gradient(circle at 0% 0%, #ffffff 0%, transparent 50%),
+              radial-gradient(circle at 100% 100%, #ffffff 0%, transparent 50%)
+            `,
+            backgroundSize: '200% 200%',
+            animation: 'gradientMove 15s ease infinite',
           }}
         />
       </div>
@@ -125,10 +127,10 @@ export default function SpaceBackground() {
       {/* Add styles for the gradient animation */}
       <style>
         {`
-          @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+          @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
           }
         `}
       </style>
