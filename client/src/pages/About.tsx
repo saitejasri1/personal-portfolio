@@ -33,11 +33,11 @@ export default function About() {
       <div className="max-w-4xl mx-auto space-y-12">
         {/* Profile Section */}
         <section className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="aspect-square rounded-lg overflow-hidden">
+          <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-accent/5">
             <img
-              src="/20241001_150737.jpg"
+              src="/20241002_113439.jpg"
               alt="Sai Tejasri Yerramsetti"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
           </div>
           <div className="space-y-4">
