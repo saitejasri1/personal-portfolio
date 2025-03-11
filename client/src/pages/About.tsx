@@ -48,7 +48,19 @@ export default function About() {
               problems and turning data into actionable insights.
             </p>
             <Button asChild>
-              <a href="/resume.pdf" download>
+              <a 
+                href="/resume.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = '/resume.pdf';
+                    link.download = 'Sai_Tejasri_Resume.pdf';
+                    link.click();
+                  }, 100);
+                }}
+              >
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
               </a>
