@@ -19,201 +19,44 @@ export default function PandaBackground() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    const leaves: Array<{
-      x: number;
-      y: number;
-      size: number;
-      rotation: number;
-      color: string;
-      speed: number;
-    }> = [];
-
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-    };
-
-    const createLeaf = () => ({
-      x: Math.random() * canvas.width,
-      y: -20,
-      size: Math.random() * 4 + 2,
-      rotation: Math.random() * Math.PI,
-      color: `hsl(${Math.random() * 360}, 70%, 60%)`, // Random vibrant colors
-      speed: Math.random() * 1 + 0.5,
-    });
-
-    const initLeaves = () => {
-      leaves.length = 0;
-      const density = (canvas.width * canvas.height) / 15000;
-      for (let i = 0; i < density; i++) {
-        leaves.push(createLeaf());
-      }
-    };
-
-    const drawLeaf = (leaf: typeof leaves[0]) => {
-      ctx.save();
-      ctx.translate(leaf.x, leaf.y);
-      ctx.rotate(leaf.rotation);
-
-      // Draw a leaf shape
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(
-        leaf.size * 2, -leaf.size,
-        leaf.size * 2, leaf.size,
-        0, leaf.size * 3
-      );
-      ctx.bezierCurveTo(
-        -leaf.size * 2, leaf.size,
-        -leaf.size * 2, -leaf.size,
-        0, 0
-      );
-      ctx.fillStyle = leaf.color;
-      ctx.fill();
-
-      ctx.restore();
-    };
-
-    const updateLeaf = (leaf: typeof leaves[0]) => {
-      leaf.y += leaf.speed;
-      leaf.x += Math.sin(leaf.y * 0.03) * 0.5;
-      leaf.rotation += 0.02;
-
-      if (leaf.y > canvas.height + 20) {
-        Object.assign(leaf, createLeaf());
-      }
-    };
-
-    const animate = () => {
-      ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      leaves.forEach((leaf) => {
-        updateLeaf(leaf);
-        drawLeaf(leaf);
-      });
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    const handleResize = () => {
-      resize();
-      initLeaves();
-    };
-
-    handleResize();
-    animate();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
   return (
-    <div className="fixed inset-0 -z-10 bg-gradient-to-b from-blue-100 via-green-50 to-emerald-100 overflow-hidden">
+    <div className="fixed inset-0 -z-10 bg-gradient-to-b from-sky-100 via-pink-50 to-emerald-50 overflow-hidden">
       {/* Grass Pattern */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-[linear-gradient(0deg,rgba(16,185,129,0.1)_1px,transparent_1px)] bg-[length:20px_20px]" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-[linear-gradient(0deg,rgba(52,211,153,0.2)_1px,transparent_1px)] bg-[length:30px_30px]" />
 
-      {/* Magical Tree */}
-      <div className="absolute left-1/4 bottom-0 w-96 h-[600px]">
-        {/* Tree Trunk */}
+      {/* Sunshine Effect */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-yellow-200/20 to-transparent" />
+
+      {/* Cloud Decorations */}
+      {[...Array(3)].map((_, i) => (
         <motion.div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-96 bg-gradient-to-t from-amber-800 to-amber-700 rounded-t-full"
+          key={i}
+          className="absolute"
+          style={{
+            top: `${10 + i * 15}%`,
+            left: '-20%',
+          }}
           animate={{
-            skewX: [-2, 2, -2],
+            left: ['120%', '-20%'],
           }}
           transition={{
-            duration: 4,
+            duration: 20 + i * 5,
             repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Tree Branches */}
-        <motion.div
-          className="absolute bottom-48 left-1/2 -translate-x-1/2"
-          animate={{
-            rotate: [-1, 1, -1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
+            ease: "linear",
+            delay: i * -7,
           }}
         >
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="relative"
-              style={{
-                transform: `rotate(${(i * 72) - 36}deg)`,
-              }}
-            >
-              <div className="absolute w-48 h-8 origin-left bg-gradient-to-r from-amber-800 to-amber-700 rounded-full" />
-            </div>
-          ))}
+          <div className="relative w-32 h-16">
+            <div className="absolute inset-0 bg-white rounded-full filter blur-sm opacity-80" />
+            <div className="absolute top-1/2 left-1/4 w-16 h-12 bg-white rounded-full filter blur-sm opacity-80" />
+            <div className="absolute top-1/2 right-1/4 w-16 h-12 bg-white rounded-full filter blur-sm opacity-80" />
+          </div>
         </motion.div>
-
-        {/* Tree Foliage */}
-        <motion.div
-          className="absolute bottom-48 left-1/2 -translate-x-1/2"
-          animate={{
-            scale: [1, 1.02, 1],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute"
-              style={{
-                top: -200 + i * 50,
-                left: -200 + i * 25,
-                width: 400 - i * 50,
-                height: 400 - i * 50,
-              }}
-              animate={{
-                rotate: [0, i % 2 === 0 ? 5 : -5, 0],
-              }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <div className={`w-full h-full rounded-full bg-gradient-radial from-green-400/80 to-green-600/80`} />
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Falling Leaves Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-60"
-      />
+      ))}
 
       {/* Rolling Panda */}
       <motion.div
-        className="absolute w-32 h-32"
+        className="absolute w-40 h-40"
         initial={{ x: "-20%", y: "60%" }}
         animate={{
           x: ["0%", "80%", "0%"],
@@ -221,27 +64,56 @@ export default function PandaBackground() {
           rotate: [0, 360 * 3],
         }}
         transition={{
-          duration: 15,
+          duration: 12,
           repeat: Infinity,
           ease: "linear",
         }}
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
+        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-lg">
           {/* Panda Body */}
           <circle cx="50" cy="50" r="40" fill="white" />
           {/* Black Patches */}
-          <circle cx="35" cy="40" r="10" fill="black" />
-          <circle cx="65" cy="40" r="10" fill="black" />
+          <circle cx="35" cy="40" r="12" fill="black" />
+          <circle cx="65" cy="40" r="12" fill="black" />
           <circle cx="50" cy="60" r="8" fill="black" />
-          <circle cx="30" cy="65" r="12" fill="black" />
-          <circle cx="70" cy="65" r="12" fill="black" />
+          <ellipse cx="30" cy="65" rx="14" ry="12" fill="black" />
+          <ellipse cx="70" cy="65" rx="14" ry="12" fill="black" />
           {/* White Eyes */}
-          <circle cx="35" cy="38" r="3" fill="white" />
-          <circle cx="65" cy="38" r="3" fill="white" />
+          <circle cx="35" cy="38" r="4" fill="white" />
+          <circle cx="65" cy="38" r="4" fill="white" />
+          {/* Blush */}
+          <circle cx="28" cy="50" r="6" fill="pink" opacity="0.3" />
+          <circle cx="72" cy="50" r="6" fill="pink" opacity="0.3" />
           {/* Cute Expression */}
-          <path d="M45,65 Q50,70 55,65" stroke="black" strokeWidth="2" fill="none" />
+          <path d="M45,65 Q50,68 55,65" stroke="black" strokeWidth="2" fill="none" />
         </svg>
       </motion.div>
+
+      {/* Floating Hearts */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{
+            left: `${20 + i * 15}%`,
+            bottom: '-20px',
+          }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            delay: i * 0.4,
+            ease: "easeInOut",
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" className="fill-pink-400">
+            <path d="M10,4 C10,0 0,0 0,7 C0,14 10,18 10,18 C10,18 20,14 20,7 C20,0 10,0 10,4 Z" />
+          </svg>
+        </motion.div>
+      ))}
 
       {/* Bird Cursor */}
       <motion.div
@@ -255,7 +127,7 @@ export default function PandaBackground() {
           width="40" 
           height="40" 
           viewBox="0 0 100 100"
-          className="fill-rose-400"
+          className="fill-pink-400"
           animate={{
             scale: [1, 1.1, 1],
             rotate: [0, -5, 0],
