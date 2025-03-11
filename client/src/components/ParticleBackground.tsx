@@ -32,7 +32,6 @@ export default function ParticleBackground() {
       y: number;
       size: number;
       rotation: number;
-      color: string;
       speed: number;
     }> = [];
 
@@ -49,7 +48,6 @@ export default function ParticleBackground() {
       y: -20,
       size: Math.random() * 4 + 2,
       rotation: Math.random() * Math.PI,
-      color: `hsl(${Math.random() * 40 + 330}, 70%, 85%)`, // Cherry blossom colors
       speed: Math.random() * 1 + 0.5,
     });
 
@@ -66,12 +64,20 @@ export default function ParticleBackground() {
       ctx.translate(petal.x, petal.y);
       ctx.rotate(petal.rotation);
 
-      // Draw a flower petal shape
+      // Draw a cherry blossom petal
       ctx.beginPath();
+      ctx.fillStyle = '#ffd7eb';
       ctx.moveTo(0, 0);
-      ctx.quadraticCurveTo(petal.size * 2, -petal.size, 0, petal.size * 3);
-      ctx.quadraticCurveTo(-petal.size * 2, -petal.size, 0, 0);
-      ctx.fillStyle = petal.color;
+      ctx.bezierCurveTo(
+        petal.size * 2, -petal.size,
+        petal.size * 2, petal.size,
+        0, petal.size * 3
+      );
+      ctx.bezierCurveTo(
+        -petal.size * 2, petal.size,
+        -petal.size * 2, -petal.size,
+        0, 0
+      );
       ctx.fill();
 
       ctx.restore();
@@ -80,7 +86,7 @@ export default function ParticleBackground() {
     const updatePetal = (petal: typeof petals[0]) => {
       petal.y += petal.speed;
       petal.x += Math.sin(petal.y * 0.03) * 0.5;
-      petal.rotation += 0.01;
+      petal.rotation += 0.02;
 
       if (petal.y > canvas.height + 20) {
         Object.assign(petal, createPetal());
@@ -88,8 +94,7 @@ export default function ParticleBackground() {
     };
 
     const animate = () => {
-      ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       petals.forEach((petal) => {
         updatePetal(petal);
@@ -116,118 +121,23 @@ export default function ParticleBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 bg-gradient-to-br from-rose-50 via-slate-50 to-indigo-50">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-60"
+    <div className="fixed inset-0 -z-10">
+      {/* Cherry Blossom Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=2070')",
+        }}
       />
 
-      {/* Large Cherry Blossom Tree */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <svg viewBox="0 0 800 600" className="w-full h-full">
-          {/* Tree Trunk */}
-          <motion.path
-            d="M400,550 C380,450 420,400 400,300 C380,200 420,150 400,50"
-            stroke="#8B4513"
-            strokeWidth="40"
-            fill="none"
-            animate={{ 
-              d: [
-                "M400,550 C380,450 420,400 400,300 C380,200 420,150 400,50",
-                "M400,550 C420,450 380,400 400,300 C420,200 380,150 400,50",
-                "M400,550 C380,450 420,400 400,300 C380,200 420,150 400,50"
-              ]
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
+      {/* Overlay to soften the image */}
+      <div className="absolute inset-0 bg-white/30" />
 
-          {/* Tree Branches */}
-          {[...Array(8)].map((_, i) => (
-            <motion.path
-              key={i}
-              d={`M400,${150 + i * 50} C${350 - i * 20},${140 + i * 50} ${300 - i * 30},${160 + i * 50} ${250 - i * 40},${170 + i * 50}`}
-              stroke="#8B4513"
-              strokeWidth={10 - i}
-              fill="none"
-              animate={{
-                d: [
-                  `M400,${150 + i * 50} C${350 - i * 20},${140 + i * 50} ${300 - i * 30},${160 + i * 50} ${250 - i * 40},${170 + i * 50}`,
-                  `M400,${150 + i * 50} C${350 - i * 20},${130 + i * 50} ${300 - i * 30},${150 + i * 50} ${250 - i * 40},${160 + i * 50}`,
-                  `M400,${150 + i * 50} C${350 - i * 20},${140 + i * 50} ${300 - i * 30},${160 + i * 50} ${250 - i * 40},${170 + i * 50}`
-                ]
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.2
-              }}
-            />
-          ))}
-
-          {/* Mirror branches on the right side */}
-          {[...Array(8)].map((_, i) => (
-            <motion.path
-              key={`right-${i}`}
-              d={`M400,${150 + i * 50} C${450 + i * 20},${140 + i * 50} ${500 + i * 30},${160 + i * 50} ${550 + i * 40},${170 + i * 50}`}
-              stroke="#8B4513"
-              strokeWidth={10 - i}
-              fill="none"
-              animate={{
-                d: [
-                  `M400,${150 + i * 50} C${450 + i * 20},${140 + i * 50} ${500 + i * 30},${160 + i * 50} ${550 + i * 40},${170 + i * 50}`,
-                  `M400,${150 + i * 50} C${450 + i * 20},${130 + i * 50} ${500 + i * 30},${150 + i * 50} ${550 + i * 40},${160 + i * 50}`,
-                  `M400,${150 + i * 50} C${450 + i * 20},${140 + i * 50} ${500 + i * 30},${160 + i * 50} ${550 + i * 40},${170 + i * 50}`
-                ]
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.2
-              }}
-            />
-          ))}
-
-          {/* Cherry Blossoms */}
-          {[...Array(30)].map((_, i) => (
-            <motion.g key={`blossom-${i}`}>
-              <circle
-                cx={300 + Math.random() * 400}
-                cy={100 + Math.random() * 300}
-                r={15 + Math.random() * 20}
-                fill="#ffd7eb"
-                opacity={0.9}
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.8, 1, 0.8]
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: Math.random() * 2
-                }}
-              />
-              {/* Petal details */}
-              {[...Array(5)].map((_, j) => (
-                <circle
-                  key={`petal-${j}`}
-                  cx={300 + Math.random() * 400 + Math.cos(j * 72 * Math.PI / 180) * 10}
-                  cy={100 + Math.random() * 300 + Math.sin(j * 72 * Math.PI / 180) * 10}
-                  r={5}
-                  fill="#ffb7db"
-                  opacity={0.7}
-                />
-              ))}
-            </motion.g>
-          ))}
-        </svg>
-      </div>
+      {/* Falling Petals Animation */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+      />
 
       {/* Bird Cursor */}
       <motion.div
