@@ -4,7 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import ParticleBackground from "@/components/ParticleBackground";
+import PandaBackground from "@/components/PandaBackground";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -31,7 +31,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-transparent text-foreground relative overflow-hidden">
-        <ParticleBackground />
+        <PandaBackground />
         <div className="relative z-10">
           <Navbar />
           <main className="container mx-auto px-4 pt-16">
