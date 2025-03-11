@@ -89,7 +89,7 @@ export default function Experience() {
 
           {/* Rocket indicator */}
           <motion.div
-            className="absolute left-0 -translate-x-[5px]"
+            className="absolute left-0 -translate-x-[5px] z-50"
             style={{ 
               y: rocketY,
               scale: useSpring(scrollYProgress, {
@@ -99,17 +99,19 @@ export default function Experience() {
               })
             }}
           >
-            <Rocket 
-              className="h-6 w-6 text-primary transform rotate-90" 
-            />
-            {/* Rocket trail effect */}
-            <motion.div 
-              className="absolute top-1/2 left-1/2 w-8 h-8 -translate-x-1/2 -translate-y-1/2"
-              style={{
-                background: "radial-gradient(circle, hsl(var(--primary) / 0.2) 0%, transparent 70%)",
-                filter: "blur(4px)"
-              }}
-            />
+            <div className="relative">
+              <Rocket 
+                className="h-8 w-8 text-primary transform rotate-90" 
+              />
+              {/* Rocket trail effect */}
+              <motion.div 
+                className="absolute top-1/2 left-1/2 w-12 h-12 -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  background: "radial-gradient(circle, hsl(var(--primary) / 0.2) 0%, transparent 70%)",
+                  filter: "blur(4px)"
+                }}
+              />
+            </div>
           </motion.div>
 
           {/* Experience items */}
