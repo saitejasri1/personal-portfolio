@@ -85,12 +85,51 @@ export default function SpaceBackground() {
     };
   }, []);
 
+  // Check if the current theme is light
+  const isLightTheme = document.documentElement.classList.contains('light');
+
   return (
-    <div className="fixed inset-0 -z-10 bg-black/50">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-      />
+    <div className="fixed inset-0 -z-10 transition-colors duration-500">
+      {/* Sunset gradient for light theme */}
+      <div 
+        className={`absolute inset-0 transition-opacity duration-500 ${
+          isLightTheme ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{
+          background: 'linear-gradient(to bottom, #ff7e5f, #feb47b, #ffb88c)',
+        }}
+      >
+        {/* Animated clouds */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)',
+            animation: 'drift 20s linear infinite',
+          }}
+        />
+      </div>
+
+      {/* Star background for dark theme */}
+      <div 
+        className={`absolute inset-0 transition-opacity duration-500 ${
+          isLightTheme ? 'opacity-0' : 'opacity-100'
+        } bg-black/50`}
+      >
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+
+      {/* Add styles for the cloud animation */}
+      <style>
+        {`
+          @keyframes drift {
+            0% { transform: translateX(-25%); }
+            100% { transform: translateX(25%); }
+          }
+        `}
+      </style>
     </div>
   );
 }
