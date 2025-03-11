@@ -90,26 +90,27 @@ export default function SpaceBackground() {
 
   return (
     <div className="fixed inset-0 -z-10 transition-colors duration-500">
-      {/* Sunset gradient for light theme */}
+      {/* Light theme background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-500 ${
           isLightTheme ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, #ff7e5f, #feb47b, #ffb88c)',
+          background: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
         }}
       >
-        {/* Animated clouds */}
+        {/* Subtle animated gradient */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-30"
           style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)',
-            animation: 'drift 20s linear infinite',
+            background: 'linear-gradient(-45deg, transparent 0%, #f5f5f5 100%)',
+            backgroundSize: '400% 400%',
+            animation: 'gradient 15s ease infinite',
           }}
         />
       </div>
 
-      {/* Star background for dark theme */}
+      {/* Dark theme star background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-500 ${
           isLightTheme ? 'opacity-0' : 'opacity-100'
@@ -121,12 +122,13 @@ export default function SpaceBackground() {
         />
       </div>
 
-      {/* Add styles for the cloud animation */}
+      {/* Add styles for the gradient animation */}
       <style>
         {`
-          @keyframes drift {
-            0% { transform: translateX(-25%); }
-            100% { transform: translateX(25%); }
+          @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
           }
         `}
       </style>
