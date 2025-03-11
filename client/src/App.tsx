@@ -4,7 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import PandaBackground from "@/components/PandaBackground";
+import CherryBlossomBackground from "@/components/CherryBlossomBackground";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Experience from "@/pages/Experience";
@@ -31,11 +31,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-transparent text-foreground relative overflow-hidden">
-        <PandaBackground />
+        <CherryBlossomBackground />
         <div className="relative z-10">
           <Navbar />
           <main className="container mx-auto px-4 pt-16">
-            <div className="backdrop-blur-sm bg-white/60 rounded-lg shadow-lg p-6">
+            <div className="backdrop-blur-sm bg-white/80 rounded-lg shadow-lg p-6">
               <Router />
             </div>
           </main>
