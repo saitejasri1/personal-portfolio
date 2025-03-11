@@ -22,8 +22,9 @@ export default function SpaceBackground() {
     }> = [];
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const { width, height } = canvas.getBoundingClientRect();
+      canvas.width = width;
+      canvas.height = height;
     };
 
     const createStar = () => {
@@ -79,12 +80,13 @@ export default function SpaceBackground() {
     <div className="fixed inset-0 -z-10 overflow-hidden bg-black/20">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0"
+        className="absolute inset-0 w-full h-full"
       />
-      
+
       {/* Earth */}
       <motion.div
         className="absolute w-32 h-32"
+        initial={{ x: "0%", y: "0%" }}
         animate={{
           x: ["0%", "70%", "0%"],
           y: ["0%", "40%", "0%"],
@@ -108,6 +110,7 @@ export default function SpaceBackground() {
       {/* Moon */}
       <motion.div
         className="absolute w-16 h-16"
+        initial={{ x: "100%", y: "30%" }}
         animate={{
           x: ["100%", "30%", "100%"],
           y: ["30%", "60%", "30%"],
