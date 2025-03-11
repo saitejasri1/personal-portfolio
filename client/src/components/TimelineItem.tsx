@@ -32,7 +32,7 @@ export default function TimelineItem({
       {/* Content */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl font-bold">{company}</CardTitle>
+          <CardTitle>{company}</CardTitle>
           <div className="text-sm text-muted-foreground">
             {position} | {period}
           </div>
