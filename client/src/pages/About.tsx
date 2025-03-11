@@ -34,10 +34,8 @@ const hobbies = [
   {
     title: "Blogging",
     description: "Recently started sharing my technical insights on Medium, focusing on topics like Rust programming, AI, and technology. Writing helps me document my learning journey and connect with the tech community.",
-    showCarousel: true,
-    images: [
-      { src: "/images/Screenshot 2025-03-11 at 4.18.34 PM.png", alt: "My Medium article about Rust installation" },
-    ],
+    showCarousel: false,
+    images: [],
   },
   {
     title: "Cooking",
