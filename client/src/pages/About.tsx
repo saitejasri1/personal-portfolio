@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import SkillBadge from "@/components/SkillBadge";
+import ImageCarousel from "@/components/ImageCarousel";
 
 const skills = [
   "Python",
@@ -16,10 +17,27 @@ const skills = [
   "Data Visualization",
 ];
 
+const cookingImages = [
+  { src: "/images/cooking1.jpg", alt: "Grilling on a barbecue" },
+  { src: "/images/cooking2.jpg", alt: "Indian street food" },
+  { src: "/images/cooking3.jpg", alt: "Asian cuisine" },
+  { src: "/images/cooking4.jpg", alt: "Homemade dish" },
+];
+
 const hobbies = [
-  { title: "Cooking", description: "Exploring world cuisines and experimenting with new recipes" },
-  { title: "Traveling", description: "Discovering new cultures and capturing memories" },
-  { title: "Blogging", description: "Sharing insights about AI and technology" },
+  {
+    title: "Cooking",
+    description: "Exploring world cuisines and experimenting with new recipes. I love creating both traditional dishes and fusion experiments. My specialties include Indian street food, Asian cuisine, and barbecue.",
+    showCarousel: true,
+  },
+  {
+    title: "Traveling",
+    description: "Discovering new cultures and capturing memories",
+  },
+  {
+    title: "Blogging",
+    description: "Sharing insights about AI and technology",
+  },
 ];
 
 export default function About() {
@@ -30,7 +48,7 @@ export default function About() {
       exit={{ opacity: 0 }}
       className="py-12"
     >
-      <div className="max-w-4xl mx-auto space-y-12">
+      <div className="max-w-4xl mx-auto space-y-12 px-4">
         {/* Profile Section */}
         <section className="grid md:grid-cols-2 gap-8 items-center">
           <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-accent/5">
@@ -79,19 +97,27 @@ export default function About() {
         </section>
 
         {/* Hobbies Section */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold">Hobbies</h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold">Hobbies & Interests</h2>
+          <div className="space-y-8">
             {hobbies.map((hobby, index) => (
               <motion.div
                 key={hobby.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="p-4 rounded-lg bg-card"
+                className="space-y-4"
               >
-                <h3 className="font-semibold mb-2">{hobby.title}</h3>
-                <p className="text-sm text-muted-foreground">{hobby.description}</p>
+                <div className="p-6 rounded-lg bg-card">
+                  <h3 className="text-xl font-semibold mb-3">{hobby.title}</h3>
+                  <p className="text-muted-foreground">{hobby.description}</p>
+
+                  {hobby.showCarousel && (
+                    <div className="mt-6">
+                      <ImageCarousel images={cookingImages} />
+                    </div>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
