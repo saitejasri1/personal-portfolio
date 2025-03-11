@@ -18,19 +18,27 @@ const skills = [
 ];
 
 const cookingImages = [
-  { src: "/images/cooking1.jpg", alt: "Grilling spicy chicken on a barbecue" },
-  { src: "/images/cooking2.jpg", alt: "Colorful Indian street food platter" },
-  { src: "/images/cooking3.jpg", alt: "Homemade manchurian dish" },
-  { src: "/images/cooking4.jpg", alt: "Delicious spicy food creation" },
+  { src: "/20250130_203805.jpg", alt: "Grilling spicy chicken on a barbecue" },
+  { src: "/IMG-20231111-WA0021.jpg", alt: "Colorful Indian street food platter" },
+  { src: "/IMG-20240318-WA0016.jpg", alt: "Homemade manchurian dish" },
+  { src: "/IMG-20240704-WA0010.jpeg", alt: "Delicious spicy food creation" },
 ];
 
 const travelImages = [
-  { src: "/images/travel/travel1.jpg", alt: "Serene temple architecture" },
-  { src: "/images/travel/travel2.jpg", alt: "Beautiful sunset at the beach" },
-  { src: "/images/travel/travel3.jpg", alt: "Peaceful pilgrimage destination" },
+  { src: "/WhatsApp Image 2025-03-11 at 16.16.22.jpeg", alt: "Serene temple architecture" },
+  { src: "/WhatsApp Image 2025-03-11 at 16.16.23 (1).jpeg", alt: "Beautiful sunset at the beach" },
+  { src: "/WhatsApp Image 2025-03-11 at 16.16.23.jpeg", alt: "Peaceful pilgrimage destination" },
 ];
 
 const hobbies = [
+  {
+    title: "Blogging",
+    description: "Recently started sharing my technical insights on Medium, focusing on topics like Rust programming, AI, and technology. Writing helps me document my learning journey and connect with the tech community.",
+    showCarousel: true,
+    images: [
+      { src: "/Screenshot 2025-03-11 at 4.18.34 PM.png", alt: "My Medium article about Rust installation" },
+    ],
+  },
   {
     title: "Cooking",
     description: "Exploring world cuisines and experimenting with new recipes. I love creating both traditional dishes and fusion experiments. My specialties include Indian street food, Asian cuisine, and barbecue.",
@@ -42,10 +50,6 @@ const hobbies = [
     description: "I have a deep appreciation for nature's beauty and spiritual places. I love spending time at beaches watching sunrises and sunsets, visiting ancient temples, and going on pilgrimages. These journeys help me connect with both nature and culture.",
     showCarousel: true,
     images: travelImages,
-  },
-  {
-    title: "Blogging",
-    description: "Sharing insights about AI and technology, and documenting my learning journey in data science and machine learning.",
   },
 ];
 
@@ -121,9 +125,27 @@ export default function About() {
                   <h3 className="text-xl font-semibold mb-3">{hobby.title}</h3>
                   <p className="text-muted-foreground">{hobby.description}</p>
 
-                  {hobby.showCarousel && (
+                  {hobby.showCarousel && hobby.images && (
                     <div className="mt-6">
                       <ImageCarousel images={hobby.images} />
+                    </div>
+                  )}
+
+                  {hobby.title === "Blogging" && (
+                    <div className="mt-4">
+                      <Button
+                        variant="outline"
+                        asChild
+                        className="hover:bg-primary/10"
+                      >
+                        <a
+                          href="https://medium.com/@saitejasri10"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Visit My Medium Blog
+                        </a>
+                      </Button>
                     </div>
                   )}
                 </div>
