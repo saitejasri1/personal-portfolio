@@ -37,7 +37,6 @@ export default function Experience() {
     restDelta: 0.001
   });
 
-  // Use useTransform instead of interpolate
   const rocketX = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
@@ -64,7 +63,7 @@ export default function Experience() {
           <Rocket className="h-6 w-6 text-primary transform -rotate-90" />
         </motion.div>
 
-        <div className="space-y-4">
+        <div className="relative space-y-4">
           {experiences.map((experience, index) => (
             <TimelineItem
               key={experience.company}
