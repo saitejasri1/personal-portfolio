@@ -15,7 +15,7 @@ export default function Home() {
         <motion.h1
           initial={{ y: 20 }}
           animate={{ y: 0 }}
-          className="text-4xl md:text-6xl font-bold"
+          className="text-4xl md:text-6xl font-extrabold text-foreground"
         >
           Sai Tejasri Yerramsetti
         </motion.h1>
@@ -24,7 +24,7 @@ export default function Home() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl md:text-2xl text-muted-foreground"
+          className="text-xl md:text-2xl font-bold text-primary"
         >
           <TypeAnimation
             sequence={[
@@ -43,7 +43,7 @@ export default function Home() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          className="text-lg font-semibold text-foreground/90 dark:text-foreground/95 max-w-2xl mx-auto"
         >
           Passionate about leveraging AI and machine learning to solve real-world problems.
           Experienced in developing innovative solutions using cutting-edge technologies.
@@ -55,7 +55,7 @@ export default function Home() {
           transition={{ delay: 0.6 }}
         >
           <Link href="/projects">
-            <Button size="lg" className="text-lg">
+            <Button size="lg" className="text-lg font-semibold">
               View My Work
             </Button>
           </Link>
