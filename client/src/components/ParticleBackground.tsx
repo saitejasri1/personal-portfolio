@@ -124,14 +124,14 @@ export default function ParticleBackground() {
     <div className="fixed inset-0 -z-10">
       {/* Cherry Blossom Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center brightness-125"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=2070')",
         }}
       />
 
-      {/* Overlay to soften the image */}
-      <div className="absolute inset-0 bg-white/30" />
+      {/* Light overlay for better text contrast */}
+      <div className="absolute inset-0 bg-white/60 dark:bg-black/40" />
 
       {/* Falling Petals Animation */}
       <canvas
@@ -151,7 +151,7 @@ export default function ParticleBackground() {
           width="40" 
           height="40" 
           viewBox="0 0 100 100"
-          className="fill-primary/80"
+          className="fill-primary/80 dark:fill-white/80" //added dark mode support
           animate={{
             scale: [1, 1.1, 1],
             rotate: [0, -5, 0]
@@ -163,8 +163,8 @@ export default function ParticleBackground() {
           }}
         >
           <path d="M50,20 Q65,20 75,35 T80,50 Q80,65 50,80 Q20,65 20,50 T25,35 Q35,20 50,20" />
-          <circle cx="40" cy="40" r="4" className="fill-white" />
-          <path d="M55,45 Q60,45 65,40" className="stroke-white stroke-2 fill-none" />
+          <circle cx="40" cy="40" r="4" className="fill-white dark:fill-black" /> //added dark mode support
+          <path d="M55,45 Q60,45 65,40" className="stroke-white dark:stroke-black stroke-2 fill-none" />  //added dark mode support
         </motion.svg>
       </motion.div>
     </div>
