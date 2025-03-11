@@ -86,56 +86,11 @@ export default function SpaceBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 bg-black">
+    <div className="fixed inset-0 -z-10 bg-black/50">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
       />
-
-      {/* Earth */}
-      <motion.div
-        className="absolute w-24 h-24 opacity-60"
-        initial={{ x: "-10%", y: "10%" }}
-        animate={{
-          x: ["-10%", "70%", "-10%"],
-          y: ["10%", "60%", "10%"],
-        }}
-        transition={{
-          duration: 60,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full filter blur-[1px]">
-          <circle cx="50" cy="50" r="48" fill="hsl(200, 80%, 40%)" />
-          <path
-            d="M25,50 Q50,20 75,50 Q50,80 25,50"
-            fill="hsl(130, 70%, 40%)"
-            opacity="0.7"
-          />
-        </svg>
-      </motion.div>
-
-      {/* Moon */}
-      <motion.div
-        className="absolute w-12 h-12 opacity-60"
-        initial={{ x: "90%", y: "20%" }}
-        animate={{
-          x: ["90%", "20%", "90%"],
-          y: ["20%", "70%", "20%"],
-        }}
-        transition={{
-          duration: 45,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full filter blur-[1px]">
-          <circle cx="50" cy="50" r="48" fill="hsl(60, 20%, 95%)" />
-          <circle cx="35" cy="35" r="12" fill="hsl(60, 20%, 85%)" opacity="0.5" />
-          <circle cx="65" cy="65" r="15" fill="hsl(60, 20%, 85%)" opacity="0.5" />
-        </svg>
-      </motion.div>
     </div>
   );
 }
