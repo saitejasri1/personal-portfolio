@@ -90,36 +90,20 @@ export default function SpaceBackground() {
 
   return (
     <div className="fixed inset-0 -z-10 transition-colors duration-500">
-      {/* Sunset gradient background */}
+      {/* Sunset background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           backgroundTheme === "gradient" ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          background: `
-            linear-gradient(135deg, 
-              #ff7e5f 0%,
-              #feb47b 25%,
-              #ffedbc 50%,
-              #feb47b 75%,
-              #ff7e5f 100%
-            )
-          `,
-          backgroundSize: '400% 400%',
-          animation: 'gradientFlow 15s ease infinite'
+          backgroundImage: `url('/images/sunset-bg.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
-        {/* Animated cloud-like overlay */}
+        {/* Subtle overlay for better text contrast */}
         <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `
-              radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.8) 0%, transparent 50%)
-            `,
-            backgroundSize: '200% 200%',
-            animation: 'cloudMove 20s ease infinite'
-          }}
+          className="absolute inset-0 bg-white/10 backdrop-blur-[2px]"
         />
       </div>
 
@@ -134,23 +118,6 @@ export default function SpaceBackground() {
           className="absolute inset-0 w-full h-full"
         />
       </div>
-
-      {/* Add styles for the animations */}
-      <style>
-        {`
-          @keyframes gradientFlow {
-            0% { background-position: 0% 50% }
-            50% { background-position: 100% 50% }
-            100% { background-position: 0% 50% }
-          }
-
-          @keyframes cloudMove {
-            0% { background-position: 0% 0% }
-            50% { background-position: 100% 100% }
-            100% { background-position: 0% 0% }
-          }
-        `}
-      </style>
     </div>
   );
 }
