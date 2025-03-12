@@ -1,0 +1,171 @@
+Ripl Hackathon Challenge – FirstWave Innovator HackNight, San Diego (Presented by Neo4j) February 2025 - https://github.com/saitejasri1
+-
+Developed and deployed a full-stack MVP web app in 1 hour using Replit and Neo4j, designed to match users
+based on survey data for technical meetups.
+-
+Integrated LinkedIn, GitHub, and OpenAI APIs to pull professional data and enhance AI-driven matching logic, ensuring
+accurate and relevant pairings.
+-
+Implemented location-aware features to recommend mutually convenient meetup spots and delivered real-time match
+results, earning 3rd place in the hackathon.
+
+
+Sharp Hospital Audio Feedback System (Flask, React, Python, WebSockets, PyTorch) (Hackathon) August 2024 - https://github.com/saitejasri1/medev
+-
+Led a team of 4 to build an application enabling patients to submit audio feedback, integrating speech-to-text, sentiment
+analysis, keyword extraction, text summarization, and categorization.
+-
+Developed a hospital-facing dashboard that reduced manual feedback analysis time by 70%, enabling faster response topatient concerns.
+-
+Leveraged WebSockets and PyTorch models to accelerate feedback loops by 40%, improving the accuracy of sentiment
+monitoring and overall operational efficiency.
+PIXEL TO PLATE: Deep Learning-Based Recipe 
+
+Overview
+
+This API processes audio feedback and provides text analysis, including transcription, summarization, sentiment analysis, categorization, and keyword extraction. Built using Flask, it utilizes Google Cloud Speech-to-Text for audio processing and various NLP models for text analysis.
+   Virtual Consultation Chrome Extension for Hospital Care (Project link) - https://github.com/saitejasri1
+Developed a Chrome extension using WebRTC for virtual consultations, enabling real-time emotion detection and voice-to-text conversion with LLM-generated medical summaries and treatment suggestions.
+Tech: JavaScript, Node.js, TensorFlow.js, Google Cloud Speech-to-Text, OpenAI GPT-4 API, MongoDB, Langchain, WebRTC
+
+Physics Quiz Generator for TA Role (Project link)- https://github.com/saitejasri1
+Designed a quiz generator using FastAPI and Claude, converting raw PDFs with complex physics equations to Markdown, allowing TAs to customize question length, difficulty, and type, while implementing auto-grading and feedback generation for students.
+Tech: FastAPI, Claude AI, Python, Marker, PDF to Markdown, LLM, Auto-Grading  Data Analyst Chicago Crime Data Analysis & Prediction System (Project link)- https://github.com/saitejasri1/Chicago-Crime-Analysis
+Performed data cleaning, exploratory data analysis, and feature engineering on the Chicago crime dataset with 250,000+ observations and 15+ features. Developed an interactive Streamlit app for real-time crime predictions and trends, including crime type, location, and time analysis using time series modeling and alert system integration.
+Tech: Python, Data Cleaning, EDA, Feature Engineering, Time Series Analysis, Streamlit, Data Visualization, Tableau  Maxine LEARNING: Chicago Crime Prediction System (Project link - https://github.com/saitejasri1/Chicago-Crime-Analysis
+Developed a multi-task learning model for predicting crime type, location, and time using RNNs, CNNs, and Transformers with attention mechanisms. Implemented crime hotspot identification and integrated external data sources to enhance model performance, achieving an F1 score of 0.78 for crime type prediction.
+Tech: Python, RNN, CNN, Transformer, Attention Mechanism, Graph Neural Networks, Model Deployment, Dashboard
+
+
+California Housing prices dataset from the StatLib Repository taken from the 1990 California Cenus.- https://github.com/saitejasri1/100-days-of-Data-Science-Code/tree/main/Day%202%20California%20Census%20Price%20
+
+Assumptions and business objective:
+
+Aim: To predict the housin_prices in the california state from the California Census Data.
+Features included in te dataset that could weigh more for the prediction of our dataset. 1. Population 2. Median Income 3. Median housing price for each block group in California. where the block group has a population of 600 to 3000 and let's call it as districts.
+Based on the above features I consider it as regression model.
+
+Comprehensive Terrorism Data Analysis Dashboard - https://github.com/saitejasri1/Globalterror
+
+Overview
+
+This project is a Streamlit-based dashboard for visualizing and analyzing global terrorism data. It provides interactive visualizations across multiple dimensions of terrorist activities, including temporal trends, geospatial patterns, attack characteristics, perpetrator profiles, and success/failure rates. 
+￼
+Features
+
+1. Temporal Analysis
+
+* Trend of terrorist attacks over time
+* Casualty trends analysis
+* Pre- and post-major event comparisons (e.g., 9/11)
+* Seasonal trend identification
+2. Geospatial Analysis
+
+* Regional hotspots identification
+* Geopolitical trend visualization
+* Geospatial clustering of terrorism "hot zones"
+* Geographic distribution of attack types
+3. Attack Type and Weapon Analysis
+
+* Analysis of attack methods (e.g., bombings, assassinations, armed assaults)
+* Weapon type trends over time and regions
+* Success rates and casualty outcomes by attack method
+4. Perpetrator and Target Analysis
+
+* Profiles of most active terrorist groups
+* Temporal patterns of group activities
+* Target type frequency analysis (e.g., military, civilians, government)
+* Cross-analysis of target types with attack success and casualty rates
+5. Success/Failure Rates of Attacks
+
+* Success rate trends over time
+* Comparative analysis of success rates across attack types
+* Factors influencing attack success (e.g., region, perpetrator group, weapon type)
+Requirements
+
+* Python 3.7+
+* Streamlit
+* Plotly
+* Dask
+* Pandas
+* NumPy
+* Plotly-geo
+For a complete list of dependencies, see requirements.txt.
+
+PIXEL TO PLATE: Deep Learning-Based Recipe Discovery and Recommendation
+Setup - https://github.com/saitejasri1/Shared-ML-project
+Description:
+Step into a world where pixels meet palates, where your visual inspiration sparks culinary creativity! At the heart of "Pixel to Plate" lies a dynamic fusion of machine learning, computer vision, and deep learning techniques, all orchestrated to redefine how we interact with recipes.
+Project Overview:
+"Pixel to Plate" embarks on an exhilarating journey through the realms of artificial intelligence and culinary arts. By harnessing the power of ML and computer vision, we've crafted an innovative recipe generation system that transcends traditional boundaries.
+Key Objectives & Ideas:
+🍳 Recipe Scraping: Unveiling a treasure trove of culinary wisdom by scraping recipes and cooking-related content from the vast expanse of the internet.
+📚 NLP Magic: Infusing recipes with linguistic finesse through the application of Natural Language Processing (NLP), allowing for seamless categorization and comprehension.
+🔍 Visual Exploration: Leveraging the prowess of OpenCV for meticulous image analysis, unraveling the mysteries of ingredients and beautifully plated dishes alike.
+🧠 Deep Learning Delight: Crafting a deep learning model that intuitively recommends recipes tailored to individual preferences and available ingredients, ensuring a personalized culinary experience.
+🌐 Interactive Oasis: Building a vibrant web application that serves as an interactive hub for culinary enthusiasts, offering a visually captivating recipe recommendation system that dances to the beat of your taste buds.
+
+
+Human Emotion Classification from EEG Readings
+
+Project Overview- https://github.com/saitejasri1/Human-Emotion-Classification
+
+This project focuses on predicting human emotional states based on EEG readings while subjects watch various movie scenes. Utilizing advanced machine learning techniques, including Recurrent Neural Networks (RNN) and K-Nearest Neighbors (KNN), the project aims to accurately classify emotional states into categories such as neutral, negative, and positive.
+Dataset
+
+The dataset comprises EEG readings of subjects as they respond to different movie scenes. Each record includes multiple features extracted from EEG readings, alongside labels indicating the emotional state of the subject (Neutral, Negative, Positive). The dataset is stored in a CSV file named Seed_Data.csv.
+Prerequisites
+
+* Python 3.x
+* NumP
+
+
+Sentiment Analysis on Restaurant Reviews
+
+Overview- https://github.com/saitejasri1/Sentiment-Analysis-on-Restaurant-Reviews
+
+This project aims to perform sentiment analysis on restaurant reviews using Support Vector Machines (SVM) combined with Principal Component Analysis (PCA) for feature reduction. The project utilizes Natural Language Processing (NLP) techniques to preprocess the text data, extract features, and classify reviews into positive or negative sentiments.
+Dataset
+
+The dataset consists of 1000 restaurant reviews collected from a variety of sources. Each review is labeled with a sentiment value: 1 for positive and 0 for negative. The dataset is structured as a tab-separated file (Restaurant_Reviews.tsv) with two columns: Review and Liked.
+
+Introduction
+
+Welcome to the Hangman Out Game! This project is a simple implementation of the classic Hangman game in Python. In this game, the player tries to guess the word by suggesting letters within a certain number of chances.
+Installation
+
+To run this game, you need Python installed on your system. This code is compatible with Python 3.x. You can download Python from the official website.
+No additional libraries are required to run this project.
+Usage
+
+
+
+🕵️‍♂️ Fraud Detection in Credit Card Transactions 💳- https://github.com/saitejasri1/credit-card-fraud-detection
+Welcome to our repository dedicated to detecting fraudulent activities in credit card transactions using advanced machine learning techniques. This project applies various Gradient Boosting algorithms to identify fraud cases from a highly imbalanced dataset.
+📚 Dataset
+The dataset includes transactions made by credit cards, where each transaction is labeled as fraudulent or legitimate. Key features include:
+* Time of transactions
+* Transaction Amount
+* 28 anonymized features (V1 to V28)
+* Class (1: Fraud, 0: No Fraud)
+* 🧰 Tools and Libraries
+Python 
+
+
+🌬️ Investigating Emphysema Severity in COPD: A Regression Approach 📈- 
+https://github.com/saitejasri1/-Investigating-Emphysema-Severity-in-COPD-A-Regression-Approach-
+Welcome to the COPD Regression Analysis Project! This repository is dedicated to a comprehensive regression analysis of the COPD dataset, aimed at uncovering the variables associated with the percentage of emphysema in the lungs.
+📊 Data
+The dataset is a valuable segment from the larger COPDGene study. It encompasses a wide range of clinical and demographic variables, offering rich insights for our analysis. The complete data and a detailed data key are conveniently available in the Excel file provided.
+🔬 Methods Used
+Univariable regression analysis 📏 Multivariable regression analysis 📊 Data visualization 📉 Variable selection techniques 🔍 Exploratory data analysis (EDA) 🔎 Handling missing data ❓ Outliers detection 📍 📋 Results
+Analysis includes both univariable and multivariable regression approaches. These methods help control for confounding effects and spotlight variables significantly linked with the percentage of emphysema in COPD patients' lungs. The findings from this study provide valuable insights for understanding COPD and enhancing patient care.
+📁 Repository Contents
+data/: The dataset used for our detailed analysis. code/: Python code scripts for conducting the regression analysis. documentation/: Relevant documentation and comprehensive reports. 🚀 How to Use
+To dive into this analysis:
+Clone the repository. Navigate to the code/ directory. Ensure all dependencies are installed. Run the scripts to reproduce the analysis. 👥 Contributors
+
+
+PortResumes  - https://github.com/saitejasri1/PortResumes
+BDA 600 course capstone project. Generating "portfolio websites from resumes"
+
