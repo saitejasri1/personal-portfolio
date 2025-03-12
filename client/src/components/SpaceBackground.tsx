@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/ThemeProvider";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import TreeBranches from "./TreeBranches";
 
 export default function SpaceBackground() {
@@ -16,6 +16,7 @@ export default function SpaceBackground() {
     if (!ctx) return;
 
     let animationFrameId: number;
+    let themeTransitioning = false;
 
     const particles: Array<{
       x: number;
@@ -37,16 +38,31 @@ export default function SpaceBackground() {
     };
 
     const createParticle = () => {
-      return {
-        x: Math.random() * canvas.width,
-        y: isDarkMode ? Math.random() * canvas.height : canvas.height + 10,
-        size: isDarkMode ? Math.random() * 2 : Math.random() * 8 + 4,
-        speedX: (Math.random() - 0.5) * 2,
-        speedY: isDarkMode ? 0 : -Math.random() * 2 - 1,
-        rotation: Math.random() * Math.PI * 2,
-        opacity: Math.random(),
-        scale: 1
-      };
+      if (isDarkMode) {
+        // Star particle
+        return {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2,
+          speedX: 0,
+          speedY: 0,
+          rotation: 0,
+          opacity: Math.random(),
+          scale: 1
+        };
+      } else {
+        // Cherry blossom petal
+        return {
+          x: Math.random() * canvas.width,
+          y: canvas.height + 10,
+          size: Math.random() * 8 + 4,
+          speedX: (Math.random() - 0.5) * 2,
+          speedY: -Math.random() * 2 - 1,
+          rotation: Math.random() * Math.PI * 2,
+          opacity: Math.random(),
+          scale: 1
+        };
+      }
     };
 
     const initParticles = () => {
@@ -55,6 +71,10 @@ export default function SpaceBackground() {
       for (let i = 0; i < count; i++) {
         particles.push(createParticle());
       }
+      themeTransitioning = true;
+      setTimeout(() => {
+        themeTransitioning = false;
+      }, 1000);
     };
 
     const drawParticle = (particle: typeof particles[0]) => {
@@ -64,7 +84,7 @@ export default function SpaceBackground() {
       ctx.scale(particle.scale, particle.scale);
 
       if (isDarkMode) {
-        // Star
+        // Draw star
         ctx.beginPath();
         for (let i = 0; i < 5; i++) {
           const angle = (i * Math.PI * 2) / 5;
@@ -77,28 +97,21 @@ export default function SpaceBackground() {
         }
         ctx.fillStyle = `hsla(220, 100%, 80%, ${particle.opacity})`;
       } else {
-        // Cherry blossom petal
+        // Draw cherry blossom petal
         ctx.beginPath();
         ctx.moveTo(0, -particle.size / 2);
-        ctx.quadraticCurveTo(
+        ctx.bezierCurveTo(
           particle.size / 2, -particle.size / 2,
-          particle.size / 2, 0
-        );
-        ctx.quadraticCurveTo(
-          particle.size / 2, particle.size / 2,
+          particle.size / 2, 0,
           0, particle.size / 2
         );
-        ctx.quadraticCurveTo(
+        ctx.bezierCurveTo(
           -particle.size / 2, particle.size / 2,
-          -particle.size / 2, 0
-        );
-        ctx.quadraticCurveTo(
-          -particle.size / 2, -particle.size / 2,
+          -particle.size / 2, 0,
           0, -particle.size / 2
         );
         ctx.fillStyle = `hsla(335, 80%, 90%, ${particle.opacity})`;
       }
-
       ctx.fill();
       ctx.restore();
     };
@@ -133,18 +146,14 @@ export default function SpaceBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    const handleResize = () => {
-      resize();
-      initParticles();
-    };
-
-    handleResize();
+    resize();
+    initParticles();
     animate();
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", resize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
   }, [isDarkMode]);
@@ -152,26 +161,38 @@ export default function SpaceBackground() {
   return (
     <div className="fixed inset-0 -z-10">
       {/* Light theme background */}
-      <motion.div 
-        className={`absolute inset-0 transition-opacity duration-1000 ${
-          !isDarkMode ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-100"
-        />
-        <TreeBranches />
-      </motion.div>
+      <AnimatePresence>
+        {!isDarkMode && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-100"
+            />
+            <TreeBranches />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Dark theme background */}
-      <div 
-        className={`absolute inset-0 transition-opacity duration-1000 ${
-          isDarkMode ? 'opacity-100' : 'opacity-0'
-        } bg-black/90`}
-      />
+      <AnimatePresence>
+        {isDarkMode && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 bg-black/90"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Particle canvas */}
       <canvas
