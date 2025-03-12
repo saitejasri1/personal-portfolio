@@ -88,16 +88,17 @@ export default function SpaceBackground() {
   }, [isDarkMode]);
 
   return (
-    <div className="fixed inset-0 -z-10 transition-colors duration-500">
+    <div className="fixed inset-0 -z-10">
       {/* Sunset background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           !isDarkMode ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          backgroundImage: `url('/images/sunset-bg.jpg')`,
+          backgroundImage: `url('/20250130_203805.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       >
         {/* Subtle overlay for better text contrast */}
