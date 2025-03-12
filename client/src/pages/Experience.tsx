@@ -14,6 +14,39 @@ import { TbBrandOpenai, TbChartBar, TbChartLine } from "react-icons/tb";
 import { BsDatabaseFill } from "react-icons/bs";
 import { FaDatabase, FaChartBar, FaChartLine, FaCloud, FaAws, FaMicrosoft } from "react-icons/fa";
 
+const experiences = [
+  {
+    title: "All of Us Research Hub, SDSU, San Diego, USA",
+    subtitle: "Research Assistant – Data Analysis",
+    period: "Jun 2024 – Present"
+  },
+  {
+    title: "Zip Launchpad, San Diego, CA",
+    subtitle: "Data Scientist",
+    period: "Jan 2024 – Jun 2024"
+  },
+  {
+    title: "Digital Innovation Lab",
+    subtitle: "AI Research Intern",
+    period: "Jun 2023 – Aug 2023"
+  },
+  {
+    title: "Temenos, Hyderabad, India",
+    subtitle: "Software Product Engineer",
+    period: "Aug 2021 – Aug 2023"
+  },
+  {
+    title: "Knowledge Solutions India",
+    subtitle: "Summer Intern",
+    period: "Jul 2020 - Aug 2020"
+  },
+  {
+    title: "Stanford d.school",
+    subtitle: "University Innovation Fellow",
+    period: "Jul 2019 - Aug 2021"
+  }
+];
+
 const skillCategories = [
   {
     title: "Programming and Frameworks",
@@ -72,45 +105,6 @@ const skillCategories = [
   },
 ];
 
-const experiences = [
-  {
-    title: "All of Us Research Hub, SDSU, San Diego, USA",
-    subtitle: "Research Assistant – Data Analysis",
-    period: "Jun 2024 – Present",
-    description: "• Led analysis of health data from 14,470 pregnant women using BigQuery and Python\n• Processed 245,675 genomic data points with PLINK for PIH research\n• Created data visualizations and insights using Plotly and Jupyter",
-  },
-  {
-    title: "Zip Launchpad, San Diego, CA",
-    subtitle: "Data Scientist",
-    period: "Jan 2024 – June 2024",
-    description: "• Improved program satisfaction by 20% using NLP for survey analysis\n• Reduced manual effort by 40% with PySpark and Airflow pipelines\n• Built predictive models reducing underutilization by 25%",
-  },
-  {
-    title: "Digital Innovation Lab",
-    subtitle: "AI Research Intern",
-    period: "Jun 2023 – Aug 2023",
-    description: "• Built LLM-powered mentor-mentee chatbot increasing engagement by 40%\n• Fine-tuned Mistral 7B improving accuracy by 18%\n• Optimized LLM deployment reducing latency by 25%",
-  },
-  {
-    title: "Temenos, Hyderabad, India",
-    subtitle: "Software Product Engineer",
-    period: "Aug 2021 – Aug 2023",
-    description: "• Resolved 200+ Jira tickets for Transact and Infinity products\n• Built front-end microservices handling 100 concurrent transactions\n• Streamlined CI/CD reducing deployment errors by 30%",
-  },
-  {
-    title: "Knowledge Solutions India",
-    subtitle: "Summer Intern",
-    period: "Jul 2020 - Aug 2020",
-    description: "• Completed ML internship focusing on sentiment analysis\n• Developed user management system with Python and SQL\n• Implemented data preprocessing pipelines",
-  },
-  {
-    title: "Stanford d.school",
-    subtitle: "University Innovation Fellow",
-    period: "Jul 2019 - Aug 2021",
-    description: "• Selected as Design Thinking Workshop apprentice among 330 colleges\n• Led innovation initiatives at Center for Innovation and Entrepreneurship\n• Organized Silicon Valley meetup at Stanford University",
-  },
-];
-
 export default function Experience() {
   return (
     <motion.div
@@ -129,8 +123,30 @@ export default function Experience() {
           Professional Experience & Skills
         </motion.h1>
 
+        {/* Timeline container */}
+        <div className="relative mb-24">
+          {/* Animated central line */}
+          <motion.div 
+            initial={{ height: 0 }}
+            animate={{ height: "100%" }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/50 via-primary/20 to-transparent -translate-x-1/2"
+          />
+
+          {/* Experience items */}
+          <div className="relative">
+            {experiences.map((experience, index) => (
+              <TimelineItem
+                key={experience.title}
+                {...experience}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+
         {/* Skills Section */}
-        <section className="mb-16">
+        <section>
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -156,31 +172,6 @@ export default function Experience() {
             ))}
           </motion.div>
         </section>
-
-        {/* Timeline container */}
-        <div className="relative">
-          {/* Animated central line */}
-          <motion.div 
-            initial={{ height: 0 }}
-            animate={{ height: "100%" }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/50 via-primary/20 to-transparent -translate-x-1/2"
-          />
-
-          {/* Experience items */}
-          <div className="relative">
-            {experiences.map((experience, index) => (
-              <TimelineItem
-                key={experience.title}
-                title={experience.title}
-                subtitle={experience.subtitle}
-                period={experience.period}
-                description={experience.description}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
       </div>
     </motion.div>
   );

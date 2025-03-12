@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface TimelineItemProps {
   title: string;
   subtitle: string;
   period: string;
-  description: string;
   index: number;
 }
 
@@ -13,7 +12,6 @@ export default function TimelineItem({
   title,
   subtitle,
   period,
-  description,
   index,
 }: TimelineItemProps) {
   const isEven = index % 2 === 0;
@@ -103,9 +101,6 @@ export default function TimelineItem({
               {subtitle} | {period}
             </div>
           </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground whitespace-pre-line">{description}</p>
-          </CardContent>
         </Card>
       </motion.div>
     </motion.div>
