@@ -1,10 +1,9 @@
 {
   "variant": "professional",
-  "primary": "hsl(335, 80%, 60%)",
-  "appearance": "system",
+  "primary": "hsl(220, 100%, 70%)",
+  "appearance": "dark",
   "radius": 0.75,
   "background": {
-    "light": "cherry-blossom",
     "dark": "space"
   }
 }
