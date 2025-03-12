@@ -1,6 +1,10 @@
 {
   "variant": "professional",
-  "primary": "hsl(230, 60%, 50%)",
+  "primary": "hsl(20, 100%, 65%)",
   "appearance": "system",
-  "radius": 0.5
+  "radius": 0.75,
+  "background": {
+    "light": "sunset",
+    "dark": "space"
+  }
 }
