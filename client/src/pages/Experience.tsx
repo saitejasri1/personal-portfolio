@@ -5,7 +5,7 @@ const experiences = [
   {
     title: "All of Us Research Hub, SDSU, San Diego, USA",
     subtitle: "Research Assistant – Data Analysis",
-    period: "Jun 2023 – Present",
+    period: "Jun 2024 – Present",
     description: `Conducted extensive analysis of health data from 14,470 pregnant women, which encompassed demographics, sleep habits, and socio-economic variables. Engaged BigQuery, Python, and SQL to uncover correlations associated with Pregnancy Induced Hypertension (PIH).
 
 Orchestrated PLINK to process and analyze 245,675 genomic data points, identifying gene variants linked to PIH in 2nd and 3rd trimester pregnancies.
