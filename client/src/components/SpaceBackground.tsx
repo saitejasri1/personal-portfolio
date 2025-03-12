@@ -90,32 +90,38 @@ export default function SpaceBackground() {
 
   return (
     <div className="fixed inset-0 -z-10 transition-colors duration-500">
-      {/* Gradient background */}
+      {/* Sunset gradient background */}
       <div 
-        className={`absolute inset-0 transition-opacity duration-500 ${
+        className={`absolute inset-0 transition-opacity duration-1000 ${
           backgroundTheme === "gradient" ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
-          background: 'linear-gradient(to right top, #f3f4f6, #e5e7eb, #d1d5db)',
+          background: `
+            linear-gradient(to bottom, 
+              #ff7e5f,
+              #feb47b,
+              #ffedbc
+            )
+          `,
         }}
       >
-        {/* Subtle animated gradient overlay */}
+        {/* Animated cloud-like overlay */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-30"
           style={{
             background: `
-              radial-gradient(circle at 0% 0%, #ffffff 0%, transparent 50%),
-              radial-gradient(circle at 100% 100%, #ffffff 0%, transparent 50%)
+              radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 50%)
             `,
             backgroundSize: '200% 200%',
-            animation: 'gradientMove 15s ease infinite',
+            animation: 'gradientMove 20s ease infinite'
           }}
         />
       </div>
 
       {/* Space background */}
       <div 
-        className={`absolute inset-0 transition-opacity duration-500 ${
+        className={`absolute inset-0 transition-opacity duration-1000 ${
           backgroundTheme === "space" ? 'opacity-100' : 'opacity-0'
         } bg-black/50`}
       >

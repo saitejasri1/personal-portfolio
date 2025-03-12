@@ -63,77 +63,112 @@ export default function Contact() {
       className="py-12"
     >
       <div className="max-w-2xl mx-auto space-y-8">
-        <div className="text-center">
+        <motion.div 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
           <h1 className="text-3xl font-bold mb-4">Get in Touch</h1>
           <p className="text-muted-foreground">
             Have a question or want to work together? I'd love to hear from you.
           </p>
-        </div>
+        </motion.div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Send a Message</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Card className="backdrop-blur-sm bg-background/80">
+            <CardHeader>
+              <CardTitle>Send a Message</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input placeholder="your.email@example.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
 
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Your message"
-                          className="min-h-[120px]"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Message</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Your message"
+                              className="min-h-[120px]"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </motion.div>
 
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={mutation.isPending}
-                >
-                  {mutation.isPending ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={mutation.isPending}
+                    >
+                      {mutation.isPending ? "Sending..." : "Send Message"}
+                    </Button>
+                  </motion.div>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </motion.div>
   );
