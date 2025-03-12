@@ -5,7 +5,7 @@ const experiences = [
   {
     title: "All of Us Research Hub, SDSU, San Diego, USA",
     subtitle: "Research Assistant – Data Analysis",
-    period: "June 2023 – Present",
+    period: "Jun 2023 – Present",
     description: `Conducted extensive analysis of health data from 14,470 pregnant women, which encompassed demographics, sleep habits, and socio-economic variables. Engaged BigQuery, Python, and SQL to uncover correlations associated with Pregnancy Induced Hypertension (PIH).
 
 Orchestrated PLINK to process and analyze 245,675 genomic data points, identifying gene variants linked to PIH in 2nd and 3rd trimester pregnancies.
@@ -64,12 +64,24 @@ export default function Experience() {
       className="py-12 relative min-h-screen"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8 text-center">Professional Experience</h1>
+        <motion.h1 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl font-bold mb-12 text-center"
+        >
+          Professional Experience
+        </motion.h1>
 
         {/* Timeline container */}
         <div className="relative">
-          {/* Center line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-primary/20 -translate-x-1/2" />
+          {/* Animated central line */}
+          <motion.div 
+            initial={{ height: 0 }}
+            animate={{ height: "100%" }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary/50 via-primary/20 to-transparent -translate-x-1/2"
+          />
 
           {/* Experience items */}
           <div className="relative">
