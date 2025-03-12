@@ -96,7 +96,7 @@ export default function SpaceBackground() {
           }
         }
       } else {
-        // Petal shape
+        // Petal shape for light mode
         ctx.moveTo(0, -particle.size);
         ctx.quadraticCurveTo(
           particle.size, -particle.size,
@@ -122,21 +122,17 @@ export default function SpaceBackground() {
     };
 
     const updateParticle = (particle: typeof particles[0]) => {
-      // Update position
       particle.x += particle.speedX;
       particle.y += particle.speedY;
       particle.rotation += particle.rotationSpeed;
 
-      // Wrap around edges
       if (particle.x < 0) particle.x = canvas.width;
       if (particle.x > canvas.width) particle.x = 0;
       if (particle.y < 0) particle.y = canvas.height;
       if (particle.y > canvas.height) particle.y = 0;
 
-      // Update scale with easing
       particle.scale += (particle.targetScale - particle.scale) * 0.1;
 
-      // Theme-specific updates
       if (isDarkMode) {
         // Star twinkling
         particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.7;
@@ -151,9 +147,9 @@ export default function SpaceBackground() {
       ctx.fillStyle = isDarkMode ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Check for theme change
+      // Theme change burst effect
       if (lastTheme !== isDarkMode) {
-        initParticles(true); // Burst effect
+        initParticles(true);
         lastTheme = isDarkMode;
         transitionProgress = 0;
       }
@@ -196,20 +192,15 @@ export default function SpaceBackground() {
         }`}
       >
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-1000"
           style={{
-            background: `
-              linear-gradient(135deg, 
-                #ff7e5f 0%,
-                #feb47b 25%,
-                #ffedbc 50%,
-                #ff9a9e 75%,
-                #fad0c4 100%
-              )
-            `,
-            opacity: 0.8,
-            transition: 'opacity 1s ease-in-out'
+            backgroundImage: "url('/images/sunset-beach.jpg')",
+            transform: !isDarkMode ? 'scale(1)' : 'scale(1.1)',
+            opacity: 0.8
           }}
+        />
+        <div 
+          className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
         />
       </div>
 
