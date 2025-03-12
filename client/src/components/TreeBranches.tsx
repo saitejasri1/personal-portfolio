@@ -18,8 +18,8 @@ export default function TreeBranches() {
           fill="none"
           stroke="hsl(335, 30%, 40%)"
           strokeWidth="4"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
           transition={{ duration: 2, ease: "easeInOut" }}
         />
 
@@ -38,8 +38,8 @@ export default function TreeBranches() {
               fill="none"
               stroke="hsl(335, 30%, 40%)"
               strokeWidth="3"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
               transition={{ 
                 delay: 1 + index * 0.2,
                 duration: 1.5,

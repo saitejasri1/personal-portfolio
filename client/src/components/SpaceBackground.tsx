@@ -11,7 +11,7 @@ export default function SpaceBackground() {
 
   useEffect(() => {
     setIsTransitioning(true);
-    const timer = setTimeout(() => setIsTransitioning(false), 1500);
+    const timer = setTimeout(() => setIsTransitioning(false), 2000); // Changed timeout duration
     return () => clearTimeout(timer);
   }, [theme]);
 
@@ -179,7 +179,6 @@ export default function SpaceBackground() {
               transition={{ duration: 1 }}
               className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-100"
             />
-            {/* Keep TreeBranches mounted and let it handle its own animations */}
             <TreeBranches />
           </motion.div>
         )}
