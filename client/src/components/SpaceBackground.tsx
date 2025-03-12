@@ -14,14 +14,21 @@ export default function SpaceBackground() {
     if (!ctx) return;
 
     let animationFrameId: number;
+    let lastTheme = isDarkMode;
+    let transitionProgress = 0;
+
     const particles: Array<{
       x: number;
       y: number;
       size: number;
       speedX: number;
       speedY: number;
+      rotation: number;
+      rotationSpeed: number;
       color: string;
       opacity: number;
+      scale: number;
+      targetScale: number;
     }> = [];
 
     const resize = () => {
@@ -32,7 +39,12 @@ export default function SpaceBackground() {
       ctx.scale(dpr, dpr);
     };
 
-    const createParticle = () => {
+    const createParticle = (burst = false) => {
+      const x = burst ? canvas.width / 2 : Math.random() * canvas.width;
+      const y = burst ? canvas.height / 2 : Math.random() * canvas.height;
+      const angle = burst ? Math.random() * Math.PI * 2 : 0;
+      const speed = burst ? Math.random() * 10 + 5 : Math.random() * 2 + 1;
+
       const colors = isDarkMode 
         ? ['hsla(220, 100%, 80%, 1)'] // Star color
         : [
@@ -42,58 +54,114 @@ export default function SpaceBackground() {
           ];
 
       return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x,
+        y,
         size: isDarkMode ? Math.random() * 2 : Math.random() * 4,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: isDarkMode ? 0 : Math.random() * 0.2 - 0.1,
+        speedX: burst ? Math.cos(angle) * speed : (Math.random() - 0.5) * 0.5,
+        speedY: burst ? Math.sin(angle) * speed : Math.random() * 0.2 - 0.1,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.02,
         color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random()
+        opacity: Math.random(),
+        scale: burst ? 2 : 1,
+        targetScale: 1
       };
     };
 
-    const initParticles = () => {
+    const initParticles = (burst = false) => {
       particles.length = 0;
-      const density = isDarkMode ? 
-        (canvas.width * canvas.height) / 8000 : 
-        (canvas.width * canvas.height) / 15000;
+      const density = (canvas.width * canvas.height) / (burst ? 3000 : 15000);
 
       for (let i = 0; i < density; i++) {
-        particles.push(createParticle());
+        particles.push(createParticle(burst));
       }
     };
 
     const drawParticle = (particle: typeof particles[0]) => {
+      ctx.save();
+      ctx.translate(particle.x, particle.y);
+      ctx.rotate(particle.rotation);
+      ctx.scale(particle.scale, particle.scale);
+
       ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      if (isDarkMode) {
+        // Star shape
+        for (let i = 0; i < 5; i++) {
+          const angle = (i * Math.PI * 2) / 5;
+          const radius = particle.size * (i % 2 ? 0.5 : 1);
+          if (i === 0) {
+            ctx.moveTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+          } else {
+            ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+          }
+        }
+      } else {
+        // Petal shape
+        ctx.moveTo(0, -particle.size);
+        ctx.quadraticCurveTo(
+          particle.size, -particle.size,
+          particle.size, 0
+        );
+        ctx.quadraticCurveTo(
+          particle.size, particle.size,
+          0, particle.size
+        );
+        ctx.quadraticCurveTo(
+          -particle.size, particle.size,
+          -particle.size, 0
+        );
+        ctx.quadraticCurveTo(
+          -particle.size, -particle.size,
+          0, -particle.size
+        );
+      }
+
       ctx.fillStyle = particle.color.replace('1)', `${particle.opacity})`);
       ctx.fill();
+      ctx.restore();
     };
 
     const updateParticle = (particle: typeof particles[0]) => {
+      // Update position
+      particle.x += particle.speedX;
+      particle.y += particle.speedY;
+      particle.rotation += particle.rotationSpeed;
+
+      // Wrap around edges
+      if (particle.x < 0) particle.x = canvas.width;
+      if (particle.x > canvas.width) particle.x = 0;
+      if (particle.y < 0) particle.y = canvas.height;
+      if (particle.y > canvas.height) particle.y = 0;
+
+      // Update scale with easing
+      particle.scale += (particle.targetScale - particle.scale) * 0.1;
+
+      // Theme-specific updates
       if (isDarkMode) {
-        // Star twinkling effect
-        particle.opacity += Math.sin(Date.now() * 0.001) * 0.01;
-        particle.opacity = Math.max(0.2, Math.min(1, particle.opacity));
+        // Star twinkling
+        particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.7;
       } else {
-        // Sunset particle movement
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-
-        // Wrap around edges
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
-
-        // Fade effect
-        particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.3;
+        // Floating effect
+        particle.speedY = Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.2;
+        particle.opacity = 0.5 + Math.sin(Date.now() * 0.002 + particle.y * 0.01) * 0.3;
       }
     };
 
     const animate = () => {
       ctx.fillStyle = isDarkMode ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Check for theme change
+      if (lastTheme !== isDarkMode) {
+        initParticles(true); // Burst effect
+        lastTheme = isDarkMode;
+        transitionProgress = 0;
+      }
+
+      // Update transition
+      if (transitionProgress < 1) {
+        transitionProgress += 0.02;
+      }
 
       particles.forEach((particle) => {
         updateParticle(particle);
