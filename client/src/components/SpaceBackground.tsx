@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 import { motion, AnimatePresence } from "framer-motion";
 import TreeBranches from "./TreeBranches";
@@ -7,6 +7,13 @@ export default function SpaceBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    setIsTransitioning(true);
+    const timer = setTimeout(() => setIsTransitioning(false), 1500);
+    return () => clearTimeout(timer);
+  }, [theme]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -16,7 +23,6 @@ export default function SpaceBackground() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let themeTransitioning = false;
 
     const particles: Array<{
       x: number;
@@ -71,10 +77,6 @@ export default function SpaceBackground() {
       for (let i = 0; i < count; i++) {
         particles.push(createParticle());
       }
-      themeTransitioning = true;
-      setTimeout(() => {
-        themeTransitioning = false;
-      }, 1000);
     };
 
     const drawParticle = (particle: typeof particles[0]) => {
@@ -121,7 +123,7 @@ export default function SpaceBackground() {
         // Twinkling stars
         particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.7;
       } else {
-        // Falling petals with swaying motion
+        // Falling and swaying petals
         particle.x += Math.sin(Date.now() * 0.001 + particle.y * 0.01) * 0.5;
         particle.y += particle.speedY;
         particle.rotation += 0.02;
@@ -161,9 +163,10 @@ export default function SpaceBackground() {
   return (
     <div className="fixed inset-0 -z-10">
       {/* Light theme background */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {!isDarkMode && (
           <motion.div
+            key="light"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -176,15 +179,17 @@ export default function SpaceBackground() {
               transition={{ duration: 1 }}
               className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-100"
             />
+            {/* Keep TreeBranches mounted and let it handle its own animations */}
             <TreeBranches />
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* Dark theme background */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isDarkMode && (
           <motion.div
+            key="dark"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
