@@ -8,18 +8,20 @@ export default function SpaceBackground() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !isDarkMode) return;
+    if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId: number;
-    const stars: Array<{
+    const particles: Array<{
       x: number;
       y: number;
       size: number;
-      alpha: number;
-      speed: number;
+      speedX: number;
+      speedY: number;
+      color: string;
+      opacity: number;
     }> = [];
 
     const resize = () => {
@@ -30,42 +32,72 @@ export default function SpaceBackground() {
       ctx.scale(dpr, dpr);
     };
 
-    const createStar = () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 2,
-      alpha: Math.random(),
-      speed: Math.random() * 0.002 + 0.002,
-    });
+    const createParticle = () => {
+      const colors = isDarkMode 
+        ? ['hsla(220, 100%, 80%, 1)'] // Star color
+        : [
+            'hsla(20, 100%, 70%, 1)',  // Warm orange
+            'hsla(340, 100%, 80%, 1)', // Pink
+            'hsla(40, 100%, 80%, 1)',  // Golden
+          ];
 
-    const initStars = () => {
-      stars.length = 0;
-      const density = (canvas.width * canvas.height) / 8000;
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: isDarkMode ? Math.random() * 2 : Math.random() * 4,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: isDarkMode ? 0 : Math.random() * 0.2 - 0.1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        opacity: Math.random()
+      };
+    };
+
+    const initParticles = () => {
+      particles.length = 0;
+      const density = isDarkMode ? 
+        (canvas.width * canvas.height) / 8000 : 
+        (canvas.width * canvas.height) / 15000;
+
       for (let i = 0; i < density; i++) {
-        stars.push(createStar());
+        particles.push(createParticle());
       }
     };
 
-    const drawStar = (star: typeof stars[0]) => {
+    const drawParticle = (particle: typeof particles[0]) => {
       ctx.beginPath();
-      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(220, 100%, 80%, ${star.alpha})`;
+      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.fillStyle = particle.color.replace('1)', `${particle.opacity})`);
       ctx.fill();
     };
 
-    const updateStar = (star: typeof stars[0]) => {
-      star.alpha += Math.sin(Date.now() * star.speed) * 0.01;
-      star.alpha = Math.max(0.1, Math.min(1, star.alpha));
-      return star;
+    const updateParticle = (particle: typeof particles[0]) => {
+      if (isDarkMode) {
+        // Star twinkling effect
+        particle.opacity += Math.sin(Date.now() * 0.001) * 0.01;
+        particle.opacity = Math.max(0.2, Math.min(1, particle.opacity));
+      } else {
+        // Sunset particle movement
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        // Wrap around edges
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
+        // Fade effect
+        particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.3;
+      }
     };
 
     const animate = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillStyle = isDarkMode ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      stars.forEach((star) => {
-        updateStar(star);
-        drawStar(star);
+      particles.forEach((particle) => {
+        updateParticle(particle);
+        drawParticle(particle);
       });
 
       animationFrameId = requestAnimationFrame(animate);
@@ -73,7 +105,7 @@ export default function SpaceBackground() {
 
     const handleResize = () => {
       resize();
-      initStars();
+      initParticles();
     };
 
     handleResize();
@@ -89,7 +121,7 @@ export default function SpaceBackground() {
 
   return (
     <div className="fixed inset-0 -z-10">
-      {/* Light theme background */}
+      {/* Light theme base gradient */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           !isDarkMode ? 'opacity-100' : 'opacity-0'
@@ -107,33 +139,25 @@ export default function SpaceBackground() {
                 #fad0c4 100%
               )
             `,
-            opacity: 0.8
-          }}
-        />
-        {/* Animated overlay for sunset effect */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(circle at top, rgba(255,255,255,0.3) 0%, transparent 70%),
-              radial-gradient(circle at bottom, rgba(255,126,95,0.4) 0%, transparent 70%)
-            `,
-            mixBlendMode: 'overlay'
+            opacity: 0.8,
+            transition: 'opacity 1s ease-in-out'
           }}
         />
       </div>
 
-      {/* Dark theme background */}
+      {/* Dark theme base */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           isDarkMode ? 'opacity-100' : 'opacity-0'
-        } bg-black/50`}
-      >
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full"
-        />
-      </div>
+        } bg-black/90`}
+      />
+
+      {/* Particle canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full transition-opacity duration-1000"
+        style={{ opacity: 0.8 }}
+      />
     </div>
   );
 }
