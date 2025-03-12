@@ -3,11 +3,12 @@ import { useTheme } from "@/components/ThemeProvider";
 
 export default function SpaceBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { backgroundTheme } = useTheme();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !isDarkMode) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -75,25 +76,23 @@ export default function SpaceBackground() {
       initStars();
     };
 
-    if (backgroundTheme === "space") {
-      handleResize();
-      animate();
+    handleResize();
+    animate();
 
-      window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        cancelAnimationFrame(animationFrameId);
-      };
-    }
-  }, [backgroundTheme]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isDarkMode]);
 
   return (
     <div className="fixed inset-0 -z-10 transition-colors duration-500">
       {/* Sunset background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
-          backgroundTheme === "gradient" ? 'opacity-100' : 'opacity-0'
+          !isDarkMode ? 'opacity-100' : 'opacity-0'
         }`}
         style={{
           backgroundImage: `url('/images/sunset-bg.jpg')`,
@@ -110,7 +109,7 @@ export default function SpaceBackground() {
       {/* Space background */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
-          backgroundTheme === "space" ? 'opacity-100' : 'opacity-0'
+          isDarkMode ? 'opacity-100' : 'opacity-0'
         } bg-black/50`}
       >
         <canvas
