@@ -25,21 +25,21 @@ export default function TimelineItem({
       transition={{ delay: index * 0.1 }}
       className={`relative mb-8 ${isEven ? 'ml-0 mr-[50%]' : 'ml-[50%] mr-0'}`}
     >
-      {/* Vertical line */}
+      {/* Horizontal connecting line */}
       <div 
-        className={`absolute top-0 h-full w-[2px] bg-primary/20 ${
-          isEven ? '-right-[1px]' : '-left-[1px]'
+        className={`absolute top-6 h-[2px] bg-primary/20 ${
+          isEven ? 'right-0 w-8' : 'left-0 w-8'
         }`}
       />
 
       {/* Glowing dot */}
       <div 
-        className={`absolute top-6 h-3 w-3 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary))] ${
-          isEven ? '-right-[5px]' : '-left-[5px]'
+        className={`absolute top-5 h-4 w-4 rounded-full bg-primary shadow-[0_0_10px_2px_hsl(var(--primary))] ${
+          isEven ? '-right-[8px]' : '-left-[8px]'
         }`}
       />
 
-      <Card className={`relative ${isEven ? 'pr-8' : 'pl-8'} backdrop-blur-sm bg-background/80 border-primary/20`}>
+      <Card className={`relative ${isEven ? 'mr-8' : 'ml-8'} backdrop-blur-sm bg-background/80 border-primary/20`}>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
           <div className="text-sm text-muted-foreground">

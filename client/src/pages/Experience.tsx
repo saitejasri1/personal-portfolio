@@ -66,21 +66,24 @@ export default function Experience() {
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-bold mb-8 text-center">Professional Experience</h1>
 
-        {/* Center line for the timeline */}
-        <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-primary/20 -translate-x-1/2" />
-
-        {/* Experience items */}
+        {/* Timeline container */}
         <div className="relative">
-          {experiences.map((experience, index) => (
-            <TimelineItem
-              key={experience.title}
-              title={experience.title}
-              subtitle={experience.subtitle}
-              period={experience.period}
-              description={experience.description}
-              index={index}
-            />
-          ))}
+          {/* Center line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-primary/20 -translate-x-1/2" />
+
+          {/* Experience items */}
+          <div className="relative">
+            {experiences.map((experience, index) => (
+              <TimelineItem
+                key={experience.title}
+                title={experience.title}
+                subtitle={experience.subtitle}
+                period={experience.period}
+                description={experience.description}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>
