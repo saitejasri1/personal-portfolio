@@ -3,57 +3,64 @@ import ProjectCard from "@/components/ProjectCard";
 
 const projects = [
   {
-    title: "Ripl Hackathon Challenge - Neo4j Matching App",
-    description: "Developed a full-stack MVP web app using Replit and Neo4j for matching users based on survey data for technical meetups. Integrated LinkedIn, GitHub, and OpenAI APIs for enhanced matching logic.",
-    technologies: ["Neo4j", "React", "Node.js", "OpenAI API", "LinkedIn API", "GitHub API"],
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80",
-    github: "https://github.com/saitejasri1"
+    title: "Chicago Crime Analysis & Prediction",
+    description: "Built an advanced crime prediction system using ML and time series analysis on 250,000+ records. Features real-time predictions, crime hotspot identification, and interactive visualizations.",
+    technologies: ["Python", "RNN", "CNN", "Transformer", "Time Series", "Streamlit"],
+    image: "https://images.unsplash.com/photo-1575916167835-51cc0f6d966f?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1/Chicago-Crime-Analysis"
   },
   {
-    title: "Sharp Hospital Audio Feedback System",
-    description: "Led development of a hospital feedback platform integrating speech-to-text, sentiment analysis, and text summarization. Reduced manual analysis time by 70% with real-time processing.",
-    technologies: ["Flask", "React", "Python", "WebSockets", "PyTorch", "NLP"],
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80",
-    github: "https://github.com/saitejasri1/medev"
+    title: "Global Terrorism Analysis Dashboard",
+    description: "Comprehensive dashboard analyzing terrorism data with interactive visualizations for temporal trends, geospatial patterns, and attack characteristics.",
+    technologies: ["Streamlit", "Plotly", "Python", "Geospatial Analysis", "Data Visualization"],
+    image: "https://images.unsplash.com/photo-1553484771-047a44eee27a?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1/Globalterror"
   },
   {
-    title: "COPD Regression Analysis",
-    description: "Comprehensive analysis of COPD dataset to uncover variables associated with emphysema severity. Used univariable and multivariable regression with advanced data visualization.",
-    technologies: ["Python", "Regression Analysis", "Data Visualization", "Statistical Analysis"],
+    title: "COPD Severity Analysis",
+    description: "Comprehensive regression analysis of COPD dataset to uncover variables affecting emphysema severity. Implements advanced statistical methods and visualization techniques.",
+    technologies: ["Python", "Statistical Analysis", "Data Visualization", "Regression Models"],
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80",
     github: "https://github.com/saitejasri1/-Investigating-Emphysema-Severity-in-COPD-A-Regression-Approach-"
   },
   {
+    title: "Physics Quiz Generator",
+    description: "Advanced quiz generation system for physics TAs, featuring PDF equation conversion, customizable difficulty levels, and automated grading with feedback.",
+    technologies: ["FastAPI", "Claude AI", "Python", "LLM", "PDF Processing"],
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1"
+  },
+  {
+    title: "Portfolio Generator",
+    description: "BDA 600 capstone project for automatically generating professional portfolio websites from resume data. Currently in development.",
+    technologies: ["React", "TypeScript", "AI/ML", "Web Development"],
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1/PortResumes"
+  },
+  {
+    title: "Ripl Hackathon - Neo4j Matching App",
+    description: "Full-stack MVP web app using Replit and Neo4j for matching users based on survey data for technical meetups. Integrated with LinkedIn, GitHub, and OpenAI APIs.",
+    technologies: ["Neo4j", "React", "Node.js", "OpenAI API", "LinkedIn API"],
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1"
+  },
+  {
+    title: "Sharp Hospital Audio Feedback",
+    description: "Led development of a hospital feedback platform integrating speech-to-text, sentiment analysis, and text summarization. Reduced manual analysis time by 70%.",
+    technologies: ["Flask", "React", "Python", "WebSockets", "PyTorch"],
+    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1/medev"
+  },
+  {
     title: "Credit Card Fraud Detection",
-    description: "Developed fraud detection system using Gradient Boosting algorithms to identify fraudulent transactions in an imbalanced dataset.",
+    description: "Advanced fraud detection system using Gradient Boosting algorithms to identify fraudulent transactions in highly imbalanced datasets.",
     technologies: ["Python", "Machine Learning", "Gradient Boosting", "Data Analysis"],
     image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80",
     github: "https://github.com/saitejasri1/credit-card-fraud-detection"
   },
   {
-    title: "Restaurant Reviews Sentiment Analysis",
-    description: "Built sentiment analysis system for restaurant reviews using SVM and PCA. Implemented NLP techniques for text preprocessing and feature extraction.",
-    technologies: ["Python", "NLP", "SVM", "PCA", "Text Classification"],
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80",
-    github: "https://github.com/saitejasri1/Sentiment-Analysis-on-Restaurant-Reviews"
-  },
-  {
-    title: "Human Emotion Classification",
-    description: "Developed emotion classification system using EEG readings and advanced ML techniques including RNN and KNN to predict emotional states.",
-    technologies: ["Python", "RNN", "KNN", "EEG Analysis", "Machine Learning"],
-    image: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80",
-    github: "https://github.com/saitejasri1/Human-Emotion-Classification"
-  },
-  {
-    title: "California Housing Price Prediction",
-    description: "Analyzed and predicted housing prices using California Census Data, implementing regression models based on population and income features.",
-    technologies: ["Python", "Regression", "Data Analysis", "Feature Engineering"],
-    image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80",
-    github: "https://github.com/saitejasri1/100-days-of-Data-Science-Code/tree/main/Day%202%20California%20Census%20Price%20"
-  },
-  {
     title: "PIXEL TO PLATE: Recipe Discovery",
-    description: "Built an innovative recipe generation system using ML and computer vision. Features include recipe scraping, NLP-based categorization, and personalized recommendations.",
+    description: "Innovative recipe generation system using ML and computer vision. Features recipe scraping, NLP-based categorization, and personalized recommendations.",
     technologies: ["Python", "OpenCV", "Deep Learning", "NLP", "Web Scraping"],
     image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&q=80",
     github: "https://github.com/saitejasri1/Shared-ML-project"
