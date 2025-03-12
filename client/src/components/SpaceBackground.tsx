@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "@/components/ThemeProvider";
+import { motion } from "framer-motion";
 
 export default function SpaceBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -48,9 +49,9 @@ export default function SpaceBackground() {
       const colors = isDarkMode 
         ? ['hsla(220, 100%, 80%, 1)'] // Star color
         : [
-            'hsla(20, 100%, 70%, 1)',  // Warm orange
-            'hsla(340, 100%, 80%, 1)', // Pink
-            'hsla(40, 100%, 80%, 1)',  // Golden
+            'hsla(335, 100%, 95%, 1)',  // Light pink (cherry blossom)
+            'hsla(335, 90%, 90%, 1)',   // Soft pink
+            'hsla(335, 80%, 85%, 1)',   // Dusty pink
           ];
 
       return {
@@ -96,22 +97,26 @@ export default function SpaceBackground() {
           }
         }
       } else {
-        // Petal shape for light mode
+        // Cherry blossom petal shape
         ctx.moveTo(0, -particle.size);
-        ctx.quadraticCurveTo(
-          particle.size, -particle.size,
+        ctx.bezierCurveTo(
+          particle.size * 0.5, -particle.size,
+          particle.size, -particle.size * 0.5,
           particle.size, 0
         );
-        ctx.quadraticCurveTo(
-          particle.size, particle.size,
+        ctx.bezierCurveTo(
+          particle.size, particle.size * 0.5,
+          particle.size * 0.5, particle.size,
           0, particle.size
         );
-        ctx.quadraticCurveTo(
-          -particle.size, particle.size,
+        ctx.bezierCurveTo(
+          -particle.size * 0.5, particle.size,
+          -particle.size, particle.size * 0.5,
           -particle.size, 0
         );
-        ctx.quadraticCurveTo(
-          -particle.size, -particle.size,
+        ctx.bezierCurveTo(
+          -particle.size, -particle.size * 0.5,
+          -particle.size * 0.5, -particle.size,
           0, -particle.size
         );
       }
@@ -137,7 +142,7 @@ export default function SpaceBackground() {
         // Star twinkling
         particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.7;
       } else {
-        // Floating effect
+        // Floating petal effect
         particle.speedY = Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.2;
         particle.opacity = 0.5 + Math.sin(Date.now() * 0.002 + particle.y * 0.01) * 0.3;
       }
@@ -185,23 +190,47 @@ export default function SpaceBackground() {
 
   return (
     <div className="fixed inset-0 -z-10">
-      {/* Light theme base gradient */}
+      {/* Light theme background with growing tree branches */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           !isDarkMode ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div 
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-1000"
-          style={{
-            backgroundImage: "url('/images/sunset-beach.jpg')",
-            transform: !isDarkMode ? 'scale(1)' : 'scale(1.1)',
-            opacity: 0.8
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ 
+            scale: !isDarkMode ? 1 : 1.1,
+            opacity: !isDarkMode ? 1 : 0
           }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-100"
         />
-        <div 
-          className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
-        />
+        <div className="absolute inset-0 opacity-20">
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            {/* Decorative tree branches pattern */}
+            <pattern
+              id="branch-pattern"
+              x="0"
+              y="0"
+              width="20"
+              height="20"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M0,10 Q10,0 20,10 M10,0 Q10,10 10,20"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.5"
+                className="text-pink-200"
+              />
+            </pattern>
+            <rect width="100" height="100" fill="url(#branch-pattern)" />
+          </svg>
+        </div>
       </div>
 
       {/* Dark theme base */}
