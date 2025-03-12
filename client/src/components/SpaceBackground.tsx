@@ -95,12 +95,32 @@ export default function SpaceBackground() {
           !isDarkMode ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <img 
-          src="/20250130_203805.jpg" 
-          alt="Sunset background"
-          className="w-full h-full object-cover"
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              linear-gradient(135deg, 
+                #ff7e5f 0%,
+                #feb47b 25%,
+                #ffedbc 50%,
+                #ff9a9e 75%,
+                #fad0c4 100%
+              )
+            `,
+            opacity: 0.8
+          }}
         />
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px]" />
+        {/* Animated overlay for sunset effect */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(circle at top, rgba(255,255,255,0.3) 0%, transparent 70%),
+              radial-gradient(circle at bottom, rgba(255,126,95,0.4) 0%, transparent 70%)
+            `,
+            mixBlendMode: 'overlay'
+          }}
+        />
       </div>
 
       {/* Dark theme background */}
