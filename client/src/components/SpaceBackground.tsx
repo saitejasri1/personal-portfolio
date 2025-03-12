@@ -16,6 +16,7 @@ export default function SpaceBackground() {
     let animationFrameId: number;
     let lastTheme = isDarkMode;
     let transitionProgress = 0;
+    let shootingStarTimer = 0;
 
     const particles: Array<{
       x: number;
@@ -29,6 +30,8 @@ export default function SpaceBackground() {
       opacity: number;
       scale: number;
       targetScale: number;
+      isShooting?: boolean;
+      trail?: Array<{ x: number; y: number; opacity: number }>;
     }> = [];
 
     const resize = () => {
@@ -39,108 +42,107 @@ export default function SpaceBackground() {
       ctx.scale(dpr, dpr);
     };
 
-    const createParticle = (burst = false) => {
+    const createStar = (burst = false, shooting = false) => {
       const x = burst ? canvas.width / 2 : Math.random() * canvas.width;
       const y = burst ? canvas.height / 2 : Math.random() * canvas.height;
-      const angle = burst ? Math.random() * Math.PI * 2 : 0;
-      const speed = burst ? Math.random() * 10 + 5 : Math.random() * 2 + 1;
-
-      const colors = isDarkMode 
-        ? ['hsla(220, 100%, 80%, 1)'] // Star color
-        : [
-            'hsla(20, 100%, 70%, 1)',  // Warm orange
-            'hsla(340, 100%, 80%, 1)', // Pink
-            'hsla(40, 100%, 80%, 1)',  // Golden
-          ];
+      const angle = burst ? Math.random() * Math.PI * 2 : Math.random() * 0.5 - 0.25;
+      const speed = burst ? Math.random() * 10 + 5 : Math.random() * 0.5 + 0.2;
 
       return {
         x,
         y,
-        size: isDarkMode ? Math.random() * 2 : Math.random() * 4,
-        speedX: burst ? Math.cos(angle) * speed : (Math.random() - 0.5) * 0.5,
-        speedY: burst ? Math.sin(angle) * speed : Math.random() * 0.2 - 0.1,
+        size: Math.random() * 3 + (shooting ? 3 : 1),
+        speedX: shooting ? Math.cos(angle) * speed * 5 : Math.cos(angle) * speed,
+        speedY: shooting ? Math.sin(angle) * speed * 5 : Math.sin(angle) * speed,
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() - 0.5) * 0.02,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random(),
+        color: `hsl(${Math.random() * 60 + 190}, 100%, ${shooting ? 90 : 80}%)`,
+        opacity: 1,
         scale: burst ? 2 : 1,
-        targetScale: 1
+        targetScale: 1,
+        isShooting: shooting,
+        trail: shooting ? [] : undefined
       };
     };
 
-    const initParticles = (burst = false) => {
+    const initStars = (burst = false) => {
       particles.length = 0;
-      const density = (canvas.width * canvas.height) / (burst ? 3000 : 15000);
+      const density = (canvas.width * canvas.height) / (burst ? 3000 : 8000);
 
       for (let i = 0; i < density; i++) {
-        particles.push(createParticle(burst));
+        particles.push(createStar(burst));
       }
     };
 
-    const drawParticle = (particle: typeof particles[0]) => {
+    const drawStar = (star: typeof particles[0]) => {
       ctx.save();
-      ctx.translate(particle.x, particle.y);
-      ctx.rotate(particle.rotation);
-      ctx.scale(particle.scale, particle.scale);
+      ctx.translate(star.x, star.y);
+      ctx.rotate(star.rotation);
+      ctx.scale(star.scale, star.scale);
 
-      ctx.beginPath();
-      if (isDarkMode) {
-        // Star shape
-        for (let i = 0; i < 5; i++) {
-          const angle = (i * Math.PI * 2) / 5;
-          const radius = particle.size * (i % 2 ? 0.5 : 1);
-          if (i === 0) {
-            ctx.moveTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-          } else {
-            ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-          }
-        }
-      } else {
-        // Petal shape for light mode
-        ctx.moveTo(0, -particle.size);
-        ctx.quadraticCurveTo(
-          particle.size, -particle.size,
-          particle.size, 0
-        );
-        ctx.quadraticCurveTo(
-          particle.size, particle.size,
-          0, particle.size
-        );
-        ctx.quadraticCurveTo(
-          -particle.size, particle.size,
-          -particle.size, 0
-        );
-        ctx.quadraticCurveTo(
-          -particle.size, -particle.size,
-          0, -particle.size
-        );
+      // Draw star trail if it's a shooting star
+      if (star.trail) {
+        star.trail.forEach((point, index) => {
+          const trailSize = star.size * (1 - index / star.trail.length);
+          ctx.beginPath();
+          ctx.arc(point.x - star.x, point.y - star.y, trailSize / 2, 0, Math.PI * 2);
+          ctx.fillStyle = star.color.replace(')', `, ${point.opacity})`);
+          ctx.fill();
+        });
       }
 
-      ctx.fillStyle = particle.color.replace('1)', `${particle.opacity})`);
+      // Draw star
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const angle = (i * Math.PI * 2) / 5;
+        const radius = star.size * (i % 2 ? 0.5 : 1);
+        if (i === 0) {
+          ctx.moveTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+        } else {
+          ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+        }
+      }
+
+      // Add glow effect
+      const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, star.size * 2);
+      gradient.addColorStop(0, star.color.replace(')', `, ${star.opacity})`));
+      gradient.addColorStop(1, star.color.replace(')', ', 0)'));
+
+      ctx.fillStyle = gradient;
       ctx.fill();
       ctx.restore();
     };
 
-    const updateParticle = (particle: typeof particles[0]) => {
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
-      particle.rotation += particle.rotationSpeed;
+    const updateStar = (star: typeof particles[0]) => {
+      star.x += star.speedX;
+      star.y += star.speedY;
+      star.rotation += star.rotationSpeed;
 
-      if (particle.x < 0) particle.x = canvas.width;
-      if (particle.x > canvas.width) particle.x = 0;
-      if (particle.y < 0) particle.y = canvas.height;
-      if (particle.y > canvas.height) particle.y = 0;
-
-      particle.scale += (particle.targetScale - particle.scale) * 0.1;
-
-      if (isDarkMode) {
-        // Star twinkling
-        particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.7;
-      } else {
-        // Floating effect
-        particle.speedY = Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.2;
-        particle.opacity = 0.5 + Math.sin(Date.now() * 0.002 + particle.y * 0.01) * 0.3;
+      // Update trail for shooting stars
+      if (star.isShooting && star.trail) {
+        star.trail.unshift({ x: star.x, y: star.y, opacity: star.opacity });
+        if (star.trail.length > 10) star.trail.pop();
+        star.trail.forEach(point => point.opacity *= 0.9);
       }
+
+      // Remove shooting stars when they exit the screen
+      if (star.isShooting && (star.x < 0 || star.x > canvas.width || star.y < 0 || star.y > canvas.height)) {
+        const index = particles.indexOf(star);
+        if (index > -1) particles.splice(index, 1);
+        return;
+      }
+
+      // Wrap non-shooting stars around the screen
+      if (!star.isShooting) {
+        if (star.x < 0) star.x = canvas.width;
+        if (star.x > canvas.width) star.x = 0;
+        if (star.y < 0) star.y = canvas.height;
+        if (star.y > canvas.height) star.y = 0;
+      }
+
+      // Twinkling effect
+      star.opacity = 0.3 + Math.sin(Date.now() * 0.001 + star.x * 0.01) * 0.7;
+      star.scale += (star.targetScale - star.scale) * 0.1;
     };
 
     const animate = () => {
@@ -149,9 +151,18 @@ export default function SpaceBackground() {
 
       // Theme change burst effect
       if (lastTheme !== isDarkMode) {
-        initParticles(true);
+        initStars(true);
         lastTheme = isDarkMode;
         transitionProgress = 0;
+      }
+
+      // Occasionally add shooting stars in dark mode
+      if (isDarkMode) {
+        shootingStarTimer++;
+        if (shootingStarTimer > 60 && Math.random() < 0.1) {
+          particles.push(createStar(false, true));
+          shootingStarTimer = 0;
+        }
       }
 
       // Update transition
@@ -159,9 +170,9 @@ export default function SpaceBackground() {
         transitionProgress += 0.02;
       }
 
-      particles.forEach((particle) => {
-        updateParticle(particle);
-        drawParticle(particle);
+      particles.forEach(star => {
+        updateStar(star);
+        drawStar(star);
       });
 
       animationFrameId = requestAnimationFrame(animate);
@@ -169,7 +180,7 @@ export default function SpaceBackground() {
 
     const handleResize = () => {
       resize();
-      initParticles();
+      initStars();
     };
 
     handleResize();
@@ -211,7 +222,7 @@ export default function SpaceBackground() {
         } bg-black/90`}
       />
 
-      {/* Particle canvas */}
+      {/* Star canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full transition-opacity duration-1000"
