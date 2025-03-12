@@ -3,13 +3,6 @@ import ProjectCard from "@/components/ProjectCard";
 
 const projects = [
   {
-    title: "Chicago Crime Analysis & Prediction",
-    description: "Built an advanced crime prediction system using ML and time series analysis on 250,000+ records. Features real-time predictions, crime hotspot identification, and interactive visualizations.",
-    technologies: ["Python", "RNN", "CNN", "Transformer", "Time Series", "Streamlit"],
-    image: "https://images.unsplash.com/photo-1575916167835-51cc0f6d966f?auto=format&fit=crop&q=80",
-    github: "https://github.com/saitejasri1/Chicago-Crime-Analysis"
-  },
-  {
     title: "Global Terrorism Analysis Dashboard",
     description: "Comprehensive dashboard analyzing terrorism data with interactive visualizations for temporal trends, geospatial patterns, and attack characteristics.",
     technologies: ["Streamlit", "Plotly", "Python", "Geospatial Analysis", "Data Visualization"],
@@ -22,6 +15,20 @@ const projects = [
     technologies: ["Python", "Statistical Analysis", "Data Visualization", "Regression Models"],
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80",
     github: "https://github.com/saitejasri1/-Investigating-Emphysema-Severity-in-COPD-A-Regression-Approach-"
+  },
+  {
+    title: "Restaurant Reviews Sentiment Analysis",
+    description: "Advanced sentiment analysis system analyzing 1000+ restaurant reviews using SVM and PCA. Features NLP preprocessing, feature extraction, and binary sentiment classification.",
+    technologies: ["Python", "NLP", "SVM", "PCA", "Text Classification"],
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1/Sentiment-Analysis-on-Restaurant-Reviews"
+  },
+  {
+    title: "California Housing Price Prediction",
+    description: "Analyzed California Census housing data to predict prices using regression models. Features population, income, and location-based analysis for districts with 600-3000 residents.",
+    technologies: ["Python", "Regression", "Census Data", "Feature Engineering"],
+    image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=80",
+    github: "https://github.com/saitejasri1/100-days-of-Data-Science-Code/tree/main/Day%202%20California%20Census%20Price%20"
   },
   {
     title: "Physics Quiz Generator",
