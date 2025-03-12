@@ -1,83 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
-import SkillBadge from "@/components/SkillBadge";
 import ImageCarousel from "@/components/ImageCarousel";
-import {
-  SiPython, SiR, SiRust, SiTensorflow, SiPytorch,
-  SiScikitlearn, SiKeras, SiPandas, SiNumpy,
-  SiTableau, SiFlask, SiPostman,
-  SiMysql, SiPostgresql, SiMongodb, 
-  SiApachespark, SiApachehadoop,
-  SiGooglecloud, SiDocker, SiStreamlit,
-  SiGit, SiGithub, SiJenkins
-} from "react-icons/si";
-import { TbBrandOpenai, TbChartBar, TbChartLine } from "react-icons/tb";
-import { BsDatabaseFill } from "react-icons/bs";
-import { FaDatabase, FaChartBar, FaChartLine, FaCloud, FaAws, FaMicrosoft } from "react-icons/fa";
-
-const skillCategories = [
-  {
-    title: "Programming and Frameworks",
-    skills: [
-      { name: "Python", icon: SiPython },
-      { name: "R", icon: SiR },
-      { name: "SQL", icon: BsDatabaseFill },
-      { name: "Rust", icon: SiRust },
-      { name: "TensorFlow", icon: SiTensorflow },
-      { name: "PyTorch", icon: SiPytorch },
-      { name: "scikit-learn", icon: SiScikitlearn },
-      { name: "Keras", icon: SiKeras },
-    ],
-  },
-  {
-    title: "Data Visualization and Backend Development",
-    skills: [
-      { name: "Pandas", icon: SiPandas },
-      { name: "NumPy", icon: SiNumpy },
-      { name: "Matplotlib", icon: FaChartLine },
-      { name: "Seaborn", icon: FaChartBar },
-      { name: "Tableau", icon: SiTableau },
-      { name: "Power BI", icon: TbChartBar },
-      { name: "RESTful APIs", icon: SiPostman },
-      { name: "Flask", icon: SiFlask },
-      { name: "Microservices", icon: FaDatabase },
-      { name: "MySQL", icon: SiMysql },
-      { name: "PostgreSQL", icon: SiPostgresql },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "Spark", icon: SiApachespark },
-      { name: "Hadoop", icon: SiApachehadoop },
-    ],
-  },
-  {
-    title: "Cloud and Deployment",
-    skills: [
-      { name: "AWS", icon: FaAws },
-      { name: "Azure", icon: FaMicrosoft },
-      { name: "GCP", icon: SiGooglecloud },
-      { name: "Flask", icon: SiFlask },
-      { name: "Docker", icon: SiDocker },
-      { name: "Streamlit", icon: SiStreamlit },
-      { name: "Dash", icon: TbChartBar },
-    ],
-  },
-  {
-    title: "Other",
-    skills: [
-      { name: "LLM Optimization", icon: TbBrandOpenai },
-      { name: "NLP", icon: TbBrandOpenai },
-      { name: "Database Management", icon: FaDatabase },
-      { name: "Git", icon: SiGit },
-      { name: "GitHub", icon: SiGithub },
-      { name: "CI/CD (Jenkins)", icon: SiJenkins },
-    ],
-  },
-];
 
 const cookingImages = [
   { src: "/images/20250130_203805.jpg", alt: "Grilling spicy chicken on a barbecue" },
   { src: "/images/IMG-20231111-WA0021.jpg", alt: "Colorful Indian street food platter" },
-  { src: "/images/IMG-20240318-WA0016.jpg", alt: "Homemade manchurian dish" },
+  { src: "/images/IMG-20240318_WA0016.jpg", alt: "Homemade manchurian dish" },
   { src: "/images/IMG-20240704-WA0010.jpeg", alt: "Delicious spicy food creation" },
 ];
 
@@ -151,30 +80,6 @@ export default function About() {
                 Download Resume
               </a>
             </Button>
-          </div>
-        </section>
-
-        {/* Skills Section */}
-        <section className="space-y-8">
-          <h2 className="text-2xl font-bold">Skills</h2>
-          <div className="space-y-8">
-            {skillCategories.map((category, categoryIndex) => (
-              <div key={category.title} className="space-y-4">
-                <h3 className="text-xl font-semibold text-primary">
-                  {category.title}
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {category.skills.map((skill, skillIndex) => (
-                    <SkillBadge
-                      key={skill.name}
-                      name={skill.name}
-                      icon={skill.icon}
-                      index={categoryIndex * 10 + skillIndex}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
           </div>
         </section>
 

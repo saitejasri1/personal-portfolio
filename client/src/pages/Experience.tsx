@@ -1,57 +1,113 @@
 import { motion } from "framer-motion";
 import TimelineItem from "@/components/TimelineItem";
+import SkillBadge from "@/components/SkillBadge";
+import {
+  SiPython, SiR, SiRust, SiTensorflow, SiPytorch,
+  SiScikitlearn, SiKeras, SiPandas, SiNumpy,
+  SiTableau, SiFlask, SiPostman,
+  SiMysql, SiPostgresql, SiMongodb, 
+  SiApachespark, SiApachehadoop,
+  SiGooglecloud, SiDocker, SiStreamlit,
+  SiGit, SiGithub, SiJenkins
+} from "react-icons/si";
+import { TbBrandOpenai, TbChartBar, TbChartLine } from "react-icons/tb";
+import { BsDatabaseFill } from "react-icons/bs";
+import { FaDatabase, FaChartBar, FaChartLine, FaCloud, FaAws, FaMicrosoft } from "react-icons/fa";
+
+const skillCategories = [
+  {
+    title: "Programming and Frameworks",
+    skills: [
+      { name: "Python", icon: SiPython },
+      { name: "R", icon: SiR },
+      { name: "SQL", icon: BsDatabaseFill },
+      { name: "Rust", icon: SiRust },
+      { name: "TensorFlow", icon: SiTensorflow },
+      { name: "PyTorch", icon: SiPytorch },
+      { name: "scikit-learn", icon: SiScikitlearn },
+      { name: "Keras", icon: SiKeras },
+    ],
+  },
+  {
+    title: "Data Visualization and Backend Development",
+    skills: [
+      { name: "Pandas", icon: SiPandas },
+      { name: "NumPy", icon: SiNumpy },
+      { name: "Matplotlib", icon: FaChartLine },
+      { name: "Seaborn", icon: FaChartBar },
+      { name: "Tableau", icon: SiTableau },
+      { name: "Power BI", icon: TbChartBar },
+      { name: "RESTful APIs", icon: SiPostman },
+      { name: "Flask", icon: SiFlask },
+      { name: "Microservices", icon: FaDatabase },
+      { name: "MySQL", icon: SiMysql },
+      { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "Spark", icon: SiApachespark },
+      { name: "Hadoop", icon: SiApachehadoop },
+    ],
+  },
+  {
+    title: "Cloud and Deployment",
+    skills: [
+      { name: "AWS", icon: FaAws },
+      { name: "Azure", icon: FaMicrosoft },
+      { name: "GCP", icon: SiGooglecloud },
+      { name: "Flask", icon: SiFlask },
+      { name: "Docker", icon: SiDocker },
+      { name: "Streamlit", icon: SiStreamlit },
+      { name: "Dash", icon: TbChartBar },
+    ],
+  },
+  {
+    title: "Other",
+    skills: [
+      { name: "LLM Optimization", icon: TbBrandOpenai },
+      { name: "NLP", icon: TbBrandOpenai },
+      { name: "Database Management", icon: FaDatabase },
+      { name: "Git", icon: SiGit },
+      { name: "GitHub", icon: SiGithub },
+      { name: "CI/CD (Jenkins)", icon: SiJenkins },
+    ],
+  },
+];
 
 const experiences = [
   {
     title: "All of Us Research Hub, SDSU, San Diego, USA",
     subtitle: "Research Assistant – Data Analysis",
     period: "Jun 2024 – Present",
-    description: `Conducted extensive analysis of health data from 14,470 pregnant women, which encompassed demographics, sleep habits, and socio-economic variables. Engaged BigQuery, Python, and SQL to uncover correlations associated with Pregnancy Induced Hypertension (PIH).
-
-Orchestrated PLINK to process and analyze 245,675 genomic data points, identifying gene variants linked to PIH in 2nd and 3rd trimester pregnancies.
-
-Developed data visualizations using Plotly and generated actionable insights via Jupyter Notebook, improving maternal health outcomes by assessing PIH risks.`,
+    description: "• Led analysis of health data from 14,470 pregnant women using BigQuery and Python\n• Processed 245,675 genomic data points with PLINK for PIH research\n• Created data visualizations and insights using Plotly and Jupyter",
   },
   {
     title: "Zip Launchpad, San Diego, CA",
     subtitle: "Data Scientist",
     period: "Jan 2024 – June 2024",
-    description: `• Developed and deployed NLP models to analyze open-ended survey responses at scale, improving program satisfaction by 20%.
-• Automated data preprocessing pipelines using PySpark and Airflow, reducing manual effort by 40%.
-• Built predictive models using ARIMA and Prophet, reducing underutilization by 25%.
-• Designed interactive dashboards leveraging Etrack survey data (2020-2024), providing real-time insights for data-driven decision-making.`,
+    description: "• Improved program satisfaction by 20% using NLP for survey analysis\n• Reduced manual effort by 40% with PySpark and Airflow pipelines\n• Built predictive models reducing underutilization by 25%",
   },
   {
     title: "Digital Innovation Lab",
     subtitle: "AI Research Intern",
     period: "Jun 2023 – Aug 2023",
-    description: `• Developed an LLM-powered mentor-mentee chatbot using TogetherAI API and RAG, increasing engagement by 40%.
-• Fine-tuned Mistral 7B for summarization and sentiment analysis, improving accuracy by 18%.
-• Built a real-time sentiment analysis pipeline using Spark and PyTorch, improving retention by 25%.
-• Optimized LLM deployment on AWS, reducing model latency by 25%.
-• Implemented continuous learning with cloud-stored embeddings, boosting response relevance by 15%.`,
+    description: "• Built LLM-powered mentor-mentee chatbot increasing engagement by 40%\n• Fine-tuned Mistral 7B improving accuracy by 18%\n• Optimized LLM deployment reducing latency by 25%",
   },
   {
     title: "Temenos, Hyderabad, India",
     subtitle: "Software Product Engineer",
     period: "Aug 2021 – Aug 2023",
-    description: `• Resolved over 200 Jira tickets and debugged workflows for Transact and Infinity products.
-• Architected front-end microservices using Visualizer, handling 100 concurrent transactions.
-• Designed scalable microservices, reducing deployment time by 30%.
-• Streamlined CI/CD pipelines, reducing deployment errors by 30%.
-• Engineered API-driven solutions, increasing satisfaction scores by 12%.`,
+    description: "• Resolved 200+ Jira tickets for Transact and Infinity products\n• Built front-end microservices handling 100 concurrent transactions\n• Streamlined CI/CD reducing deployment errors by 30%",
   },
   {
     title: "Knowledge Solutions India",
     subtitle: "Summer Intern",
     period: "Jul 2020 - Aug 2020",
-    description: `Completed machine learning internship focusing on customer review sentiment analysis and user management project development.`,
+    description: "• Completed ML internship focusing on sentiment analysis\n• Developed user management system with Python and SQL\n• Implemented data preprocessing pipelines",
   },
   {
     title: "Stanford d.school",
     subtitle: "University Innovation Fellow",
     period: "Jul 2019 - Aug 2021",
-    description: `Participated in the prestigious Design Thinking Workshop as an apprentice, joining students from 330 colleges worldwide at the Silicon Valley meetup at Stanford University. Led initiatives as an organizer for the Center for Innovation and Entrepreneurship, fostering innovation and entrepreneurial mindset among students.`,
+    description: "• Selected as Design Thinking Workshop apprentice among 330 colleges\n• Led innovation initiatives at Center for Innovation and Entrepreneurship\n• Organized Silicon Valley meetup at Stanford University",
   },
 ];
 
@@ -70,8 +126,36 @@ export default function Experience() {
           transition={{ duration: 0.5 }}
           className="text-3xl font-bold mb-12 text-center"
         >
-          Professional Experience
+          Professional Experience & Skills
         </motion.h1>
+
+        {/* Skills Section */}
+        <section className="mb-16">
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-8"
+          >
+            {skillCategories.map((category, categoryIndex) => (
+              <div key={category.title} className="space-y-4">
+                <h3 className="text-xl font-semibold text-primary">
+                  {category.title}
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                  {category.skills.map((skill, skillIndex) => (
+                    <SkillBadge
+                      key={skill.name}
+                      name={skill.name}
+                      icon={skill.icon}
+                      index={categoryIndex * 10 + skillIndex}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </section>
 
         {/* Timeline container */}
         <div className="relative">
