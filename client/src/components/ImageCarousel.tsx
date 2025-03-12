@@ -60,12 +60,12 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
   return (
     <div className="relative group">
-      <div className="overflow-hidden rounded-lg" ref={emblaRef}>
-        <div className="flex">
+      <div className="overflow-hidden rounded-lg h-[300px]" ref={emblaRef}>
+        <div className="flex h-full">
           {images.map((image, index) => (
             <motion.div
               key={index}
-              className="relative flex-[0_0_100%] min-w-0 aspect-video"
+              className="relative flex-[0_0_100%] min-w-0 h-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: index * 0.2 }}
@@ -73,7 +73,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
               <motion.div
                 className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"

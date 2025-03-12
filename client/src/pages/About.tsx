@@ -6,7 +6,7 @@ import ImageCarousel from "@/components/ImageCarousel";
 const cookingImages = [
   { src: "/images/20250130_203805.jpg", alt: "Grilling spicy chicken on a barbecue" },
   { src: "/images/IMG-20231111-WA0021.jpg", alt: "Colorful Indian street food platter" },
-  { src: "/images/IMG_20240318_WA0016.jpg", alt: "Homemade manchurian dish" },
+  { src: "/images/IMG-20240318-WA0016.jpg", alt: "Homemade manchurian dish" },
   { src: "/images/IMG-20240704-WA0010.jpeg", alt: "Delicious spicy food creation" },
 ];
 
