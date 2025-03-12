@@ -42,16 +42,16 @@ Developed data visualizations using Plotly and generated actionable insights via
 • Engineered API-driven solutions, increasing satisfaction scores by 12%.`,
   },
   {
-    title: "Stanford d.school",
-    subtitle: "University Innovation Fellow",
-    period: "Jul 2019 - Aug 2021",
-    description: `Participated in the prestigious Design Thinking Workshop as an apprentice, joining students from 330 colleges worldwide at the Silicon Valley meetup at Stanford University. Led initiatives as an organizer for the Center for Innovation and Entrepreneurship, fostering innovation and entrepreneurial mindset among students.`,
-  },
-  {
     title: "Knowledge Solutions India",
     subtitle: "Summer Intern",
     period: "Jul 2020 - Aug 2020",
     description: `Completed machine learning internship focusing on customer review sentiment analysis and user management project development.`,
+  },
+  {
+    title: "Stanford d.school",
+    subtitle: "University Innovation Fellow",
+    period: "Jul 2019 - Aug 2021",
+    description: `Participated in the prestigious Design Thinking Workshop as an apprentice, joining students from 330 colleges worldwide at the Silicon Valley meetup at Stanford University. Led initiatives as an organizer for the Center for Innovation and Entrepreneurship, fostering innovation and entrepreneurial mindset among students.`,
   },
 ];
 
