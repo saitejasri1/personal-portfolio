@@ -1,10 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function TreeBranches() {
-  const { scrollYProgress } = useScroll();
-
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Main trunk */}
       <motion.svg
         className="absolute left-1/2 h-full w-40 -translate-x-1/2"
@@ -13,16 +11,18 @@ export default function TreeBranches() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
+        {/* Main trunk with animation */}
         <motion.path
           d="M50,0 Q50,500 50,1000"
           fill="none"
           stroke="hsl(335, 30%, 40%)"
           strokeWidth="4"
           initial={{ pathLength: 0 }}
-          style={{ pathLength: scrollYProgress }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
         />
 
-        {/* Generate branches */}
+        {/* Generate branches with sequential animation */}
         {Array.from({ length: 8 }).map((_, index) => {
           const y = (index + 1) * 120;
           const isRight = index % 2 === 0;
@@ -38,18 +38,17 @@ export default function TreeBranches() {
               stroke="hsl(335, 30%, 40%)"
               strokeWidth="3"
               initial={{ pathLength: 0 }}
-              style={{
-                pathLength: useTransform(
-                  scrollYProgress,
-                  [index / 8, (index + 1) / 8],
-                  [0, 1]
-                ),
+              animate={{ pathLength: 1 }}
+              transition={{ 
+                delay: 1 + index * 0.2,
+                duration: 1.5,
+                ease: "easeInOut"
               }}
             />
           );
         })}
 
-        {/* Add blossoms */}
+        {/* Add blossoms with staggered animation */}
         {Array.from({ length: 12 }).map((_, index) => {
           const x = Math.sin(index) * 30 + 50;
           const y = index * 80 + 100;
@@ -61,10 +60,13 @@ export default function TreeBranches() {
               cy={y}
               r="4"
               fill="hsl(335, 80%, 85%)"
-              initial={{ scale: 0 }}
-              animate={{ scale: [0, 1.2, 1] }}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ 
+                scale: [0, 1.2, 1],
+                opacity: 1
+              }}
               transition={{
-                delay: index * 0.1,
+                delay: 2 + index * 0.1,
                 duration: 0.5,
                 ease: "easeOut"
               }}

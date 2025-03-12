@@ -39,10 +39,10 @@ export default function SpaceBackground() {
     const createParticle = () => {
       return {
         x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        y: isDarkMode ? Math.random() * canvas.height : canvas.height + 10,
         size: isDarkMode ? Math.random() * 2 : Math.random() * 8 + 4,
         speedX: (Math.random() - 0.5) * 2,
-        speedY: isDarkMode ? 0 : Math.random() * -1 - 0.5,
+        speedY: isDarkMode ? 0 : -Math.random() * 2 - 1,
         rotation: Math.random() * Math.PI * 2,
         opacity: Math.random(),
         scale: 1
@@ -108,8 +108,8 @@ export default function SpaceBackground() {
         // Twinkling stars
         particle.opacity = 0.3 + Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.7;
       } else {
-        // Falling petals
-        particle.x += particle.speedX;
+        // Falling petals with swaying motion
+        particle.x += Math.sin(Date.now() * 0.001 + particle.y * 0.01) * 0.5;
         particle.y += particle.speedY;
         particle.rotation += 0.02;
         particle.opacity = 0.7 + Math.sin(Date.now() * 0.002 + particle.y * 0.01) * 0.3;
@@ -152,7 +152,7 @@ export default function SpaceBackground() {
   return (
     <div className="fixed inset-0 -z-10">
       {/* Light theme background */}
-      <div 
+      <motion.div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           !isDarkMode ? 'opacity-100' : 'opacity-0'
         }`}
@@ -164,7 +164,7 @@ export default function SpaceBackground() {
           className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-100"
         />
         <TreeBranches />
-      </div>
+      </motion.div>
 
       {/* Dark theme background */}
       <div 
