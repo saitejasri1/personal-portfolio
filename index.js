@@ -52,7 +52,7 @@ import { fileURLToPath } from "url";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig({
-  base: "/personal-portfolio/",
+  base: "/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -72,7 +72,9 @@ var vite_config_default = defineConfig({
   root: path.resolve(__dirname, "client"),
   build: {
     outDir: path.resolve(__dirname, "dist"),
-    emptyOutDir: true
+    emptyOutDir: true,
+    copyPublicDir: true
+    // ✅ Ensures 404.html is included in dist/
   }
 });
 
