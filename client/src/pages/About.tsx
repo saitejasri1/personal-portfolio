@@ -4,16 +4,16 @@ import { Download } from "lucide-react";
 import ImageCarousel from "@/components/ImageCarousel";
 
 const cookingImages = [
-  { src: "/images/20250130_203805.jpg", alt: "Grilling spicy chicken on a barbecue" },
-  { src: "/images/IMG-20231111-WA0021.jpg", alt: "Colorful Indian street food platter" },
-  { src: "/images/IMG-20240318-WA0016.jpg", alt: "Homemade manchurian dish" },
-  { src: "/images/IMG-20240704-WA0010.jpeg", alt: "Delicious spicy food creation" },
+  { src: "/personal-portfolio/images/cooking1.jpg", alt: "Grilling spicy chicken on a barbecue" },
+  { src: "/personal-portfolio/images/cooking2.jpg", alt: "Home-cooked special dish" },
+  { src: "/personal-portfolio/images/cooking3.jpg", alt: "Delicious cooking experiment" },
+  { src: "/personal-portfolio/images/cooking4.jpg", alt: "Homemade fusion recipe" },
 ];
 
 const travelImages = [
-  { src: "/images/WhatsApp Image 2025-03-11 at 16.16.22.jpeg", alt: "Serene temple architecture" },
-  { src: "/images/WhatsApp Image 2025-03-11 at 16.16.23 (1).jpeg", alt: "Beautiful sunset at the beach" },
-  { src: "/images/WhatsApp Image 2025-03-11 at 16.16.23.jpeg", alt: "Peaceful pilgrimage destination" },
+  { src: "/personal-portfolio/images/travel/travel1.jpg", alt: "Serene temple architecture" },
+  { src: "/personal-portfolio/images/travel/travel2.jpg", alt: "Beautiful sunset at the beach" },
+  { src: "/personal-portfolio/images/travel/travel3.jpg", alt: "Peaceful pilgrimage destination" },
 ];
 
 const hobbies = [
@@ -59,8 +59,9 @@ export default function About() {
             }}
             className="relative aspect-[3/4] rounded-lg overflow-hidden bg-accent/5 group"
           >
+            
             <motion.img
-              src="/20241002_113439.jpg"
+              src="/personal-portfolio/images/20241002_113439.jpg"
               alt="Sai Tejasri Yerramsetti"
               className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
               whileHover={{ scale: 1.05 }}
@@ -81,7 +82,7 @@ export default function About() {
             </p>
             <Button asChild>
               <a
-                href="/resume.pdf"
+                href="/personal-portfolio/DS resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => {
