@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base:"/personal-portfolio/",
+  base:"/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -33,5 +33,6 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
+    copyPublicDir: true, // ✅ Ensures 404.html is included in dist/
   },
 });
