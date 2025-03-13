@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";  
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
@@ -15,14 +15,21 @@ import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  // ✅ Fix: Move useLocation inside the Router function
+  const [location] = useLocation();
+  const basePath = "/personal-portfolio";
+
+  const customRoute = (path: string): string =>
+    location.startsWith(basePath) ? path.replace(basePath, "") : path;
+
   return (
     <AnimatePresence mode="wait">
       <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/experience" component={Experience} />
-        <Route path="/projects" component={Projects} />
-        <Route path="/contact" component={Contact} />
+        <Route path={customRoute("/")} component={Home} />
+        <Route path={customRoute("/about")} component={About} />
+        <Route path={customRoute("/experience")} component={Experience} />
+        <Route path={customRoute("/projects")} component={Projects} />
+        <Route path={customRoute("/contact")} component={Contact} />
         <Route component={NotFound} />
       </Switch>
     </AnimatePresence>
