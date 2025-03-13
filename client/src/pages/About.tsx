@@ -4,17 +4,18 @@ import { Download } from "lucide-react";
 import ImageCarousel from "@/components/ImageCarousel";
 
 const cookingImages = [
-  { src: "/personal-portfolio/images/cooking1.jpg", alt: "Grilling spicy chicken on a barbecue" },
-  { src: "/personal-portfolio/images/cooking2.jpg", alt: "Home-cooked special dish" },
-  { src: "/personal-portfolio/images/cooking3.jpg", alt: "Delicious cooking experiment" },
-  { src: "/personal-portfolio/images/cooking4.jpg", alt: "Homemade fusion recipe" },
+  { src: "/images/cooking1.jpg", alt: "Grilling spicy chicken on a barbecue" },
+  { src: "/images/cooking2.jpg", alt: "Home-cooked special dish" },
+  { src: "/images/cooking3.jpg", alt: "Delicious cooking experiment" },
+  { src: "/images/cooking4.jpg", alt: "Homemade fusion recipe" },
 ];
 
 const travelImages = [
-  { src: "/personal-portfolio/images/travel/travel1.jpg", alt: "Serene temple architecture" },
-  { src: "/personal-portfolio/images/travel/travel2.jpg", alt: "Beautiful sunset at the beach" },
-  { src: "/personal-portfolio/images/travel/travel3.jpg", alt: "Peaceful pilgrimage destination" },
+  { src: "/images/travel/travel1.jpg", alt: "Serene temple architecture" },
+  { src: "/images/travel/travel2.jpg", alt: "Beautiful sunset at the beach" },
+  { src: "/images/travel/travel3.jpg", alt: "Peaceful pilgrimage destination" },
 ];
+
 
 const hobbies = [
   {
@@ -61,7 +62,7 @@ export default function About() {
           >
             
             <motion.img
-              src="/personal-portfolio/images/20241002_113439.jpg"
+              src="/images/20241002_113439.jpg"
               alt="Sai Tejasri Yerramsetti"
               className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
               whileHover={{ scale: 1.05 }}
@@ -82,15 +83,16 @@ export default function About() {
             </p>
             <Button asChild>
               <a
-                href="/personal-portfolio/DS resume.pdf"
+                href="/DS resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => {
                   setTimeout(() => {
                     const link = document.createElement('a');
-                    link.href = '/resume.pdf';
+                    link.href = '/DS resume.pdf';
                     link.download = 'Sai_Tejasri_Resume.pdf';
                     link.click();
+                    document.body.removeChild(link);
                   }, 100);
                 }}
               >
